@@ -76,11 +76,6 @@ export default function Home() {
 
 
         <div className={styles.heroInner}>
-          <ScrollReveal animation="fadeUp" delay={0}>
-            <div className={styles.heroBadge}>
-              Train creativity, not productivity
-            </div>
-          </ScrollReveal>
 
           <ScrollReveal animation="fadeUp" delay={100}>
             <h1 className={styles.heroTitle}>
