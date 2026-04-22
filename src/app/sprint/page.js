@@ -53,38 +53,32 @@ function SprintPageInner() {
     )).toISOString().split("T")[0];
     
     // Defensive slicing in case DB returns ISO timestamps
-    const lastDailyDate = user.lastDailyDate?.slice(0, 10) ?? null;
+    const lastSprintDate = user.lastDailyDate?.slice(0, 10) ?? null;
 
     let lapsed = false;
 
-    if (isDailyMode && dailyDate) {
-      const targetDate = dailyDate.slice(0, 10);
-      if (lastDailyDate === yesterday) {
-        // Continuing the streak
-        activeStreak += 1;
-      } else if (lastDailyDate !== targetDate && lastDailyDate !== todayUTC) {
-        // Missed a day or first time
-        if (user.currentStreak > 0) lapsed = true;
-        activeStreak = 1;
+    if (lastSprintDate === yesterday) {
+      // First sprint of the day: increment
+      activeStreak += 1;
+    } else if (lastSprintDate !== todayUTC) {
+      // Missed a day or first time ever
+      if (lastSprintDate && lastSprintDate !== yesterday) {
+        lapsed = true;
       }
-      // If lastDailyDate === todayUTC, we stay at user.currentStreak (already updated today)
-    } else {
-      // Regular sprint mode: check for lapse
-      if (lastDailyDate && lastDailyDate !== todayUTC && lastDailyDate !== yesterday) {
-        if (user.currentStreak > 0) lapsed = true;
-        activeStreak = 0;
-      }
+      activeStreak = 1;
     }
+    // If lastSprintDate === todayUTC, we stay at user.currentStreak (already updated today)
 
     const multiplier = activeStreak >= 3 ? 1.2 : 1;
+    
     let bonusAura = 0;
-
-    if (isDailyMode && dailyDate && activeStreak === 7 && user.currentStreak !== 7) {
+    // Bonus only applies once per day on the 7th day
+    if (activeStreak === 7 && user.currentStreak !== 7) {
       bonusAura = 150;
     }
 
     return { activeStreak, multiplier, bonusAura, lapsed };
-  }, [user, isDailyMode, dailyDate]);
+  }, [user]);
 
   const { activeStreak, multiplier: streakMultiplier, bonusAura, lapsed } = getStreakData();
 
@@ -181,6 +175,7 @@ function SprintPageInner() {
   const deletionTimeoutRef = useRef(null);
   const textAreaRef = useRef(null);
   const scrollSyncRef = useRef(null);
+  const timerInitialRef = useRef(timeMode * 60);
   
   // Calculate locked text boundary dynamically
   const getLockedLength = useCallback(() => {
@@ -293,7 +288,7 @@ function SprintPageInner() {
         await supabase.rpc("increment_participant_count", { prompt_date_val: dailyDate }).catch(() => {});
 
         // 4. Compute updated streak
-        const todayUTC = dailyDate.slice(0, 10);
+        const todayUTC = new Date().toISOString().split("T")[0];
         const newStreak = Number(activeStreak) || 1;
         const newAura = Number(user.aura || 0) + auraGained;
         const newLongestStreak = Math.max(newStreak, Number(user.longestStreak || 0));
@@ -371,11 +366,14 @@ function SprintPageInner() {
 
         if (storyError) throw storyError;
 
+        const todayUTC = new Date().toISOString().split("T")[0];
+        const newStreak = Number(activeStreak) || 1;
         const newAura = (user.aura || 0) + auraGained;
         const updatedTotalStories = (user.totalStories || 0) + 1;
+        const newLongestStreak = Math.max(newStreak, Number(user.longestStreak || 0));
 
         // Compute achievements against the post-save stats
-        const postSaveUser = { ...user, totalStories: updatedTotalStories, currentStreak: activeStreak };
+        const postSaveUser = { ...user, totalStories: updatedTotalStories, currentStreak: newStreak, longestStreak: newLongestStreak };
         const fullEarned = computeEarnedAchievements(postSaveUser, { wordCount, timerMinutes, isHardcore, isMobile });
         const newlyUnlockedIds = getNewlyUnlocked(user.earnedAchievements || [], fullEarned);
         const combinedAchievements = [...fullEarned];
@@ -385,14 +383,12 @@ function SprintPageInner() {
           aura: newAura,
           total_stories: updatedTotalStories,
           level: Math.floor(newAura / 500) + 1,
+          current_streak: newStreak,
+          longest_streak: newLongestStreak,
+          last_daily_date: todayUTC,
           earned_achievements: combinedAchievements,
         };
         
-        // If they lapsed and lost their streak, update the DB so they actually lose it
-        if (user.currentStreak > 0 && activeStreak === 0) {
-          profileUpdate.current_streak = 0;
-        }
-
         const { error: profileError } = await supabase
           .from("profiles")
           .update(profileUpdate)
@@ -405,8 +401,10 @@ function SprintPageInner() {
           aura: profileUpdate.aura,
           totalStories: profileUpdate.total_stories,
           level: profileUpdate.level,
+          currentStreak: newStreak,
+          longestStreak: newLongestStreak,
+          lastDailyDate: todayUTC,
           earnedAchievements: combinedAchievements,
-          ...(user.currentStreak > 0 && activeStreak === 0 ? { currentStreak: 0 } : {})
         });
 
         // Show toasts for newly unlocked achievements
