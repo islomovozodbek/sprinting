@@ -928,9 +928,7 @@ function SprintPageInner() {
                   }}
                 />
              </div>
-             
-              </div>
-           </div>
+          </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "center" }}>
             <button 
