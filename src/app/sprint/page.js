@@ -51,19 +51,26 @@ function SprintPageInner() {
       new Date().getUTCMonth(),
       new Date().getUTCDate() - 1
     )).toISOString().split("T")[0];
-    const lastDailyDate = user.lastDailyDate ?? null;
+    
+    // Defensive slicing in case DB returns ISO timestamps
+    const lastDailyDate = user.lastDailyDate?.slice(0, 10) ?? null;
 
     let lapsed = false;
 
     if (isDailyMode && dailyDate) {
+      const targetDate = dailyDate.slice(0, 10);
       if (lastDailyDate === yesterday) {
+        // Continuing the streak
         activeStreak += 1;
-      } else if (lastDailyDate !== dailyDate && lastDailyDate !== todayUTC) {
+      } else if (lastDailyDate !== targetDate && lastDailyDate !== todayUTC) {
+        // Missed a day or first time
         if (user.currentStreak > 0) lapsed = true;
         activeStreak = 1;
       }
+      // If lastDailyDate === todayUTC, we stay at user.currentStreak (already updated today)
     } else {
-      if (lastDailyDate !== todayUTC && lastDailyDate !== yesterday) {
+      // Regular sprint mode: check for lapse
+      if (lastDailyDate && lastDailyDate !== todayUTC && lastDailyDate !== yesterday) {
         if (user.currentStreak > 0) lapsed = true;
         activeStreak = 0;
       }
@@ -228,11 +235,11 @@ function SprintPageInner() {
         await supabase.rpc("increment_participant_count", { prompt_date_val: dailyDate }).catch(() => {});
 
         // 4. Compute updated streak
-        const todayUTC = dailyDate;
-        const newStreak = activeStreak;
-        const newAura = (user.aura || 0) + auraGained;
-        const newLongestStreak = Math.max(newStreak, user.longestStreak || 0);
-        const updatedTotalStories = (user.totalStories || 0) + 1;
+        const todayUTC = dailyDate.slice(0, 10);
+        const newStreak = Number(activeStreak) || 1;
+        const newAura = Number(user.aura || 0) + auraGained;
+        const newLongestStreak = Math.max(newStreak, Number(user.longestStreak || 0));
+        const updatedTotalStories = Number(user.totalStories || 0) + 1;
 
         // 5. Compute achievements against the post-save stats
         const postSaveUser = {
@@ -806,7 +813,7 @@ function SprintPageInner() {
 
                 {streakMultiplier > 1 && (
                   <div style={{ marginTop: "16px", padding: "12px", background: "rgba(var(--accent-rgb), 0.1)", color: "var(--accent)", borderRadius: "8px", fontSize: "0.9rem", fontWeight: "600", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-                    🔥 {user.currentStreak} Day Streak! (1.2x Aura Active)
+                    🔥 {activeStreak} Day Streak! (1.2x Aura Active)
                   </div>
                 )}
                 {lapsed && (
@@ -930,6 +937,10 @@ function SprintPageInner() {
                 {bonusAura > 0 && <span style={{ fontSize: "0.8rem", color: "var(--accent)" }} title="7-Day Streak Bonus">🎁</span>}
               </strong>
               <span>Aura</span>
+            </div>
+            <div className={styles.completeStat}>
+              <strong>{activeStreak}</strong>
+              <span>Day Streak</span>
             </div>
           </div>
           
