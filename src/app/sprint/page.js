@@ -633,16 +633,24 @@ function SprintPageInner() {
   };
 
   const renderTextOverlay = () => {
-    const segments = text.split(/(?<=[.?!])\s+/);
-    return segments.map((segment, index) => {
-      const isBlurred = index < segments.length - 1;
-      return (
-        <span key={index} className={`${styles.fogSegment} ${isBlurred ? styles.blurred : ""}`}>
-          {segment}
-          {index < segments.length - 1 ? " " : ""}
+    // Split by sentence endings but capture the whitespace that follows them
+    // so we can preserve newlines and multiple spaces for perfect wrap-sync.
+    const segments = text.split(/((?<=[.?!])\s+)/);
+    
+    const elements = [];
+    for (let i = 0; i < segments.length; i += 2) {
+      const segment = segments[i];
+      const spacing = segments[i + 1] || "";
+      const isLast = i >= segments.length - 2;
+      const isBlurred = !isLast;
+      
+      elements.push(
+        <span key={i} className={`${styles.fogSegment} ${isBlurred ? styles.blurred : ""}`}>
+          {segment}{spacing}
         </span>
       );
-    });
+    }
+    return elements;
   };
 
   // Determine Countdown number

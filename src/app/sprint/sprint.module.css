@@ -1,10 +1,11 @@
 .sprintPage {
-  min-height: calc(100vh - var(--nav-height));
+  height: calc(100dvh - var(--nav-height));
   display: flex;
   flex-direction: column;
   transition: background-color 2s ease-in-out;
   background-color: var(--bg-secondary);
   position: relative;
+  overflow: hidden;
 }
 
 .sprintPage.warningZone {
@@ -286,7 +287,7 @@
   font-family: var(--font-writing);
   font-size: 1.35rem;
   line-height: 1.8;
-  padding: 0 20px 40px 20px; /* Reduced bottom padding to fix jittering on newline wrap */
+  padding: 0 20px 40vh 20px; /* Massive bottom padding for 'infinite' scrolling feel */
   margin: 0;
   border: none;
   background: transparent;
@@ -294,6 +295,10 @@
   resize: none;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .textArea::-webkit-scrollbar,
