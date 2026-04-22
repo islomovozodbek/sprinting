@@ -225,23 +225,36 @@ function SprintPageInner() {
 
       if (isDailyMode && dailyDate) {
         // ── Daily Prompt Flow ───────────────────────────────────────────────
-        // 1. Ensure the daily_prompt row exists for today (upsert just in case)
-        const { data: promptRow, error: promptErr } = await supabase
+        // 1. Ensure the daily_prompt row exists for today (get or create)
+        let promptRow;
+        const { data: existingPrompt, error: fetchErr } = await supabase
           .from("daily_prompts")
-          .upsert(
-            { 
+          .select("id")
+          .eq("prompt_date", dailyDate)
+          .maybeSingle();
+
+        if (existingPrompt) {
+          promptRow = existingPrompt;
+        } else {
+          const { data: newPrompt, error: insertErr } = await supabase
+            .from("daily_prompts")
+            .insert({ 
               prompt_date: dailyDate, 
               prompt_id: dailyPromptData?.id || "d-today", 
               prompt_text: dailyPromptData?.text || "Daily Sprint" 
-            },
-            { onConflict: "prompt_date" }
-          )
-          .select("id")
-          .single();
+            })
+            .select("id")
+            .single();
+          
+          if (insertErr || !newPrompt) {
+            console.error("Daily prompt creation error:", insertErr);
+            throw new Error(`Could not create daily prompt record: ${insertErr?.message || "Unknown error"}`);
+          }
+          promptRow = newPrompt;
+        }
 
-        if (promptErr || !promptRow) {
-          console.error("Daily prompt resolution error:", promptErr);
-          throw new Error("Could not sync daily prompt record. Check connection.");
+        if (!promptRow) {
+          throw new Error("Could not resolve daily prompt record.");
         }
 
         // 2. Upsert the daily submission row (replaces update to be more resilient)
@@ -625,18 +638,27 @@ function SprintPageInner() {
 
         // If daily mode, ensure prompt row exists and insert pending submission
         if (isDailyMode && dailyDate) {
-          const { data: promptRow } = await supabase
+          let promptRow;
+          const { data: existingPrompt } = await supabase
             .from("daily_prompts")
-            .upsert(
-              { 
+            .select("id")
+            .eq("prompt_date", dailyDate)
+            .maybeSingle();
+
+          if (existingPrompt) {
+            promptRow = existingPrompt;
+          } else {
+            const { data: newPrompt } = await supabase
+              .from("daily_prompts")
+              .insert({ 
                 prompt_date: dailyDate, 
                 prompt_id: dailyPromptData?.id || "d-today", 
                 prompt_text: dailyPromptData?.text || "Daily Sprint" 
-              },
-              { onConflict: "prompt_date" }
-            )
-            .select("id")
-            .single();
+              })
+              .select("id")
+              .single();
+            promptRow = newPrompt;
+          }
 
           if (promptRow) {
             await supabase.from("daily_submissions").upsert({
