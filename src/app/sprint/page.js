@@ -187,26 +187,40 @@ function SprintPageInner() {
     try {
       if (isDailyMode && dailyDate) {
         // ── Daily Prompt Flow ───────────────────────────────────────────────
-        // 1. Get the daily_prompt row id for today
-        const { data: promptRow } = await supabase
+        // 1. Ensure the daily_prompt row exists for today (upsert just in case)
+        const { data: promptRow, error: promptErr } = await supabase
           .from("daily_prompts")
+          .upsert(
+            { 
+              prompt_date: dailyDate, 
+              prompt_id: dailyPromptData?.id || "d-today", 
+              prompt_text: dailyPromptData?.text || "Daily Sprint" 
+            },
+            { onConflict: "prompt_date" }
+          )
           .select("id")
-          .eq("prompt_date", dailyDate)
           .single();
 
-        if (!promptRow) throw new Error("Daily prompt row not found");
+        if (promptErr || !promptRow) {
+          console.error("Daily prompt resolution error:", promptErr);
+          throw new Error("Could not sync daily prompt record. Check connection.");
+        }
 
-        // 2. Update the pending daily submission row
+        // 2. Upsert the daily submission row (replaces update to be more resilient)
         const { error: subError } = await supabase
           .from("daily_submissions")
-          .update({
+          .upsert({
+            daily_prompt_id: promptRow.id,
+            author_id: user.uid,
+            author_username: user.username,
+            is_pro_user: user.tier === "pro",
             title: title.trim(),
             content: text.trim(),
             word_count: wordCount,
             submitted: true,
-          })
-          .eq("daily_prompt_id", promptRow.id)
-          .eq("author_id", user.uid);
+          }, { 
+            onConflict: "daily_prompt_id, author_id" 
+          });
 
         if (subError) throw subError;
 
@@ -242,10 +256,15 @@ function SprintPageInner() {
           earned_achievements: combinedAchievements,
         };
 
-        await supabase
+        const { error: profileError } = await supabase
           .from("profiles")
           .update(profileUpdate)
           .eq("id", user.uid);
+
+        if (profileError) {
+          console.error("Profile update failed:", profileError);
+          // We don't throw here to avoid blocking navigation if the submission itself was saved
+        }
 
         // 6. Update local state
         updateLocalUser?.({
@@ -554,44 +573,51 @@ function SprintPageInner() {
       textAreaRef.current?.focus();
     }, 100);
 
-    // Anti-Reroll & Daily Progress Implementation
-    try {
-      const { supabase } = await import("@/lib/supabase");
-      
-      // Increment sprints_today right as timer starts
-      await supabase
-        .from("profiles")
-        .update({ sprints_today: (user.sprintsToday || 0) + 1 })
-        .eq("id", user.uid);
-        
-      if (updateLocalUser) {
-        updateLocalUser({ sprintsToday: (user.sprintsToday || 0) + 1 });
-      }
-
-      // If daily mode, insert the pending daily record
-      if (isDailyMode && dailyDate) {
-        const { data: promptRow } = await supabase
-          .from("daily_prompts")
-          .select("id")
-          .eq("prompt_date", dailyDate)
-          .single();
-
-        if (promptRow) {
-          await supabase.from("daily_submissions").insert({
-            daily_prompt_id: promptRow.id,
-            author_id: user.uid,
-            author_username: user.username,
-            is_pro_user: user.tier === "pro",
-            submitted: false,
-            title: "Pending...",
-            content: "Pending...",
-            word_count: 0
-          });
+      // Anti-Reroll & Daily Progress Implementation
+      try {
+        // Increment sprints_today right as timer starts
+        await supabase
+          .from("profiles")
+          .update({ sprints_today: (user.sprintsToday || 0) + 1 })
+          .eq("id", user.uid);
+          
+        if (updateLocalUser) {
+          updateLocalUser({ sprintsToday: (user.sprintsToday || 0) + 1 });
         }
+
+        // If daily mode, ensure prompt row exists and insert pending submission
+        if (isDailyMode && dailyDate) {
+          const { data: promptRow } = await supabase
+            .from("daily_prompts")
+            .upsert(
+              { 
+                prompt_date: dailyDate, 
+                prompt_id: dailyPromptData?.id || "d-today", 
+                prompt_text: dailyPromptData?.text || "Daily Sprint" 
+              },
+              { onConflict: "prompt_date" }
+            )
+            .select("id")
+            .single();
+
+          if (promptRow) {
+            await supabase.from("daily_submissions").upsert({
+              daily_prompt_id: promptRow.id,
+              author_id: user.uid,
+              author_username: user.username,
+              is_pro_user: user.tier === "pro",
+              submitted: false,
+              title: "Pending...",
+              content: "Pending...",
+              word_count: 0
+            }, { 
+              onConflict: "daily_prompt_id, author_id" 
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Failed to initialize sprint server data:", e);
       }
-    } catch (e) {
-      console.error("Failed to intialize sprint server data:", e);
-    }
   };
 
   const [timerInitial, setTimerInitial] = useState(0);
