@@ -175,15 +175,10 @@ function SprintPageInner() {
   };
 
   const handlePublish = async () => {
-    if (!user || text.length === 0 || isPublishing) return;
-    if (!title.trim()) {
-      setShowTitleError(true);
-      return;
-    }
-    setShowTitleError(false);
-    
+    if (isPublishing || !user) return;
     setIsPublishing(true);
-    const wordCount = text.trim().split(/\s+/).length;
+    const trimmedText = text.trim();
+    const wordCount = trimmedText ? trimmedText.split(/\s+/).length : 0;
     
     const baseAuraGained = Math.floor((wordCount * 2) / 5);
     const auraGained = Math.floor(baseAuraGained * streakMultiplier) + bonusAura;
@@ -192,6 +187,15 @@ function SprintPageInner() {
     const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
     try {
+      // 0. Title Validation (moved inside try for better flow)
+      if (!title.trim()) {
+        setShowTitleError(true);
+        setIsPublishing(false);
+        // Scroll to title input if possible
+        return;
+      }
+      setShowTitleError(false);
+
       if (isDailyMode && dailyDate) {
         // ── Daily Prompt Flow ───────────────────────────────────────────────
         // 1. Ensure the daily_prompt row exists for today (upsert just in case)
@@ -382,7 +386,7 @@ function SprintPageInner() {
           console.error("Offline storage failed:", storageErr);
         }
       } else {
-        alert("Failed to save your daily sprint. Please try again.");
+        alert(`Failed to save your daily sprint: ${err.message || "Unknown error"}`);
       }
       
       setIsPublishing(false);
