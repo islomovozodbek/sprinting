@@ -114,6 +114,33 @@ function SprintPageInner() {
 
   const [isPublishing, setIsPublishing] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [dailyLock, setDailyLock] = useState(null); // null, 'locked', 'submitted'
+
+  useEffect(() => {
+    const checkDailyStatus = async () => {
+      if (isDailyMode && dailyDate && user) {
+        const { data: promptRow } = await supabase
+          .from("daily_prompts")
+          .select("id")
+          .eq("prompt_date", dailyDate)
+          .single();
+
+        if (promptRow) {
+          const { data: sub } = await supabase
+            .from("daily_submissions")
+            .select("submitted")
+            .eq("daily_prompt_id", promptRow.id)
+            .eq("author_id", user.uid)
+            .maybeSingle();
+
+          if (sub) {
+            setDailyLock(sub.submitted ? 'submitted' : 'locked');
+          }
+        }
+      }
+    };
+    checkDailyStatus();
+  }, [isDailyMode, dailyDate, user]);
 
   useEffect(() => {
     // Detect theme for the shareable image
@@ -696,32 +723,55 @@ function SprintPageInner() {
                   <span style={{ fontSize: "0.8rem", fontWeight: "700", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)" }}>Daily Prompt</span>
                 </div>
 
-                {/* Sealed prompt box — no peeking */}
-                <div style={{
-                  padding: "32px 24px",
-                  background: "var(--bg-secondary)",
-                  borderRadius: "16px",
-                  border: "1.5px dashed var(--border-strong)",
-                  marginBottom: "var(--space-xl)",
-                  textAlign: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                }}>
-                  <span style={{ fontSize: "2rem", display: "block", marginBottom: "12px" }}>🔒</span>
-                  <strong style={{ fontSize: "1rem", color: "var(--text-primary)", display: "block", marginBottom: "6px" }}>
-                    Prompt sealed
-                  </strong>
-                  <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.6 }}>
-                    It appears the moment the clock starts.<br />No reading ahead.
-                  </p>
-                </div>
+                {dailyLock ? (
+                  <div style={{ textAlign: "center", marginBottom: "var(--space-xl)" }}>
+                    <div style={{ padding: "32px 24px", background: "var(--bg-secondary)", borderRadius: "16px", border: "1.5px solid var(--border)", textAlign: "center" }}>
+                      <span style={{ fontSize: "2rem", display: "block", marginBottom: "12px" }}>🛑</span>
+                      <strong style={{ fontSize: "1.1rem", color: "var(--text-primary)", display: "block", marginBottom: "8px" }}>
+                        Sprint Locked
+                      </strong>
+                      <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "24px", lineHeight: 1.6 }}>
+                        {dailyLock === 'submitted' 
+                          ? "You've already submitted today's sprint! Check the results on the Daily page."
+                          : "You already viewed today's prompt. The 'blind write' rule means you only get one shot per day."
+                        }
+                      </p>
+                      <Link href="/daily" className="btn btn-primary" style={{ padding: "12px 24px" }}>
+                         View Daily Results
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {/* Sealed prompt box — no peeking */}
+                    <div style={{
+                      padding: "32px 24px",
+                      background: "var(--bg-secondary)",
+                      borderRadius: "16px",
+                      border: "1.5px dashed var(--border-strong)",
+                      marginBottom: "var(--space-xl)",
+                      textAlign: "center",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}>
+                      <span style={{ fontSize: "2rem", display: "block", marginBottom: "12px" }}>🔒</span>
+                      <strong style={{ fontSize: "1rem", color: "var(--text-primary)", display: "block", marginBottom: "6px" }}>
+                        Prompt sealed
+                      </strong>
+                      <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.6 }}>
+                        It appears the moment the clock starts.<br />No reading ahead.
+                      </p>
+                    </div>
 
-                <p style={{ fontSize: "0.83rem", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
-                  3 minutes · No rerolls · One submission per day
-                </p>
-                <button className="btn btn-primary" onClick={startSprint} style={{ padding: "16px 40px", fontSize: "1.1rem" }}>
-                  ✍️ Start Writing
-                </button>
+                    <p style={{ fontSize: "0.83rem", color: "var(--text-muted)", marginBottom: "var(--space-xl)" }}>
+                      3 minutes · No rerolls · One submission per day
+                    </p>
+                    <button className="btn btn-primary" onClick={startSprint} style={{ padding: "16px 40px", fontSize: "1.1rem" }}>
+                      ✍️ Start Writing
+                    </button>
+                  </>
+                )}
+                
                 <div style={{ marginTop: "var(--space-md)" }}>
                   <Link href="/daily" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                     ← Back to Daily
