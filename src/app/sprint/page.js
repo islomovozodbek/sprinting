@@ -627,6 +627,7 @@ function SprintPageInner() {
     setPrompt(selectedPrompt);
     setTimeLeft(finalTime);
     setTimerInitial(finalTime);
+    timerInitialRef.current = finalTime;
     setText("");
     setPhase("active");
     setInactivityMs(0);
@@ -693,10 +694,6 @@ function SprintPageInner() {
   };
 
   const [timerInitial, setTimerInitial] = useState(0);
-  const timerInitialRef = useRef(0);
-  useEffect(() => {
-    timerInitialRef.current = timerInitial;
-  }, [timerInitial]);
 
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
