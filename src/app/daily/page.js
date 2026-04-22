@@ -264,7 +264,7 @@ export default function DailyPage() {
               </p>
             </div>
           ) : (
-            /* REVEALED — show the prompt after starting or submission */
+            /* REVEALED — show the prompt after submission */
             <div className={styles.promptBox}>
               <span className={styles.promptMark}>"</span>
               <div className={styles.promptText}>{todayPrompt.text}</div>
@@ -314,20 +314,29 @@ export default function DailyPage() {
                 </div>
               </div>
             </>
+          ) : mySubmission && !mySubmission.submitted ? (
+            <div className={styles.ctaZone}>
+              <div className={styles.ctaTitle}>You've already viewed today's prompt.</div>
+              <div className={styles.ctaSubtitle}>
+                No restarts. The "blind write" rule means you only get one sprint per day. By leaving the previous sprint, you've forfeited today's entry.
+              </div>
+              <button disabled className={styles.ctaBtn} style={{ cursor: "not-allowed", opacity: 0.5 }}>
+                🔒 Sprint Locked
+              </button>
+              <p className={styles.ctaHint}>
+                Come back tomorrow for a new prompt.
+              </p>
+            </div>
           ) : (
             <div className={styles.ctaZone}>
-              <div className={styles.ctaTitle}>
-                {mySubmission && !mySubmission.submitted ? "Ready to finish your sprint?" : "Ready to write blind?"}
-              </div>
+              <div className={styles.ctaTitle}>Ready to write blind?</div>
               <div className={styles.ctaSubtitle}>
-                {mySubmission && !mySubmission.submitted 
-                  ? "You've already seen today's prompt. Hop back in and finish your story!"
-                  : "Your prompt appears the moment the clock starts. One sprint. One shot. No second-guessing."
-                }
+                Your prompt appears the moment the clock starts.<br />
+                One sprint. One shot. No second-guessing.
               </div>
               {user ? (
                 <Link href={`/sprint?mode=daily&date=${today}`} className={styles.ctaBtn}>
-                  {mySubmission && !mySubmission.submitted ? "✍️ Resume/Restart Sprint" : "✍️ Start Today's Sprint"}
+                  ✍️ Start Today's Sprint
                 </Link>
               ) : (
                 <Link href="/login" className={styles.ctaBtn}>
@@ -341,8 +350,8 @@ export default function DailyPage() {
           )}
         </ScrollReveal>
 
-        {/* ── Feed (only after submission) ── */}
-        {mySubmission && mySubmission.submitted && !loading && (
+        {/* ── Feed (only after submission OR if locked out) ── */}
+        {mySubmission && !loading && (
           <ScrollReveal animation="fadeUp" delay={100}>
             <div className={styles.feedSection}>
               <div className={styles.feedHeader}>

@@ -128,13 +128,27 @@ function SprintPageInner() {
         if (promptRow) {
           const { data: sub } = await supabase
             .from("daily_submissions")
-            .select("submitted")
+            .select("submitted, created_at")
             .eq("daily_prompt_id", promptRow.id)
             .eq("author_id", user.uid)
             .maybeSingle();
 
           if (sub) {
-            setDailyLock(sub.submitted ? 'submitted' : 'locked');
+            const startTime = new Date(sub.created_at).getTime();
+            const now = Date.now();
+            const elapsedSeconds = Math.floor((now - startTime) / 1000);
+            const totalAllowed = 180; // 3 minutes
+
+            if (sub.submitted) {
+              setDailyLock('submitted');
+            } else if (elapsedSeconds >= totalAllowed) {
+              setDailyLock('locked');
+            } else {
+              // Within 3 min window, allow re-entry but with reduced time
+              setDailyLock(null);
+              const remaining = Math.max(10, totalAllowed - elapsedSeconds); // Minimum 10 seconds if they return very late
+              setTimeMode(remaining / 60);
+            }
           }
         }
       }
