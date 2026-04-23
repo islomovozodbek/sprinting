@@ -188,7 +188,17 @@ export default function FeedPage() {
   const [sortBy, setSortBy] = useState("Newest");
   const [selectedStory, setSelectedStory] = useState(null);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  
+
+  // Debounced search — prevents a DB query on every keystroke
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const debounceRef = useRef(null);
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearch(val);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => setDebouncedSearch(val), 400);
+  };
+
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -197,7 +207,7 @@ export default function FeedPage() {
   useEffect(() => {
     setPage(0);
     setHasMore(true);
-  }, [sortBy, search]);
+  }, [sortBy, debouncedSearch]);
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -208,12 +218,15 @@ export default function FeedPage() {
       }
 
       try {
+        // Only fetch the columns we actually render — avoids downloading
+        // full story content + huge upvoters/downvoters arrays on initial load.
+        // We still need upvoters/downvoters for the vote UI.
         let query = supabase
           .from("stories")
-          .select("*")
+          .select(
+            "id, title, content, starter_sentence, author_username, created_at, net_score, upvoters, downvoters, is_pro_user"
+          )
           .eq("is_hidden", false);
-
-
 
         if (sortBy === "Trending") {
           query = query.order("net_score", { ascending: false });
@@ -221,8 +234,12 @@ export default function FeedPage() {
           query = query.order("created_at", { ascending: false });
         }
 
-        if (search) {
-          query = query.or(`content.ilike.%${search}%,author_username.ilike.%${search}%`);
+        // Search only title + author_username — content ilike with a leading
+        // wildcard forces a full table scan and is extremely slow.
+        if (debouncedSearch) {
+          query = query.or(
+            `title.ilike.%${debouncedSearch}%,author_username.ilike.%${debouncedSearch}%`
+          );
         }
 
         const from = page * PAGE_SIZE;
@@ -249,7 +266,7 @@ export default function FeedPage() {
     };
 
     fetchStories();
-  }, [sortBy, search, page]);
+  }, [sortBy, debouncedSearch, page]);
 
   return (
     <div className={styles.feedPage}>
@@ -271,10 +288,10 @@ export default function FeedPage() {
               </svg>
               <input
                 type="text"
-                placeholder="Search stories, authors, or concepts..."
+                placeholder="Search titles or authors..."
                 className={styles.searchInput}
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={handleSearchChange}
               />
             </div>
           </ScrollReveal>
