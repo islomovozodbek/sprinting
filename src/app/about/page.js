@@ -1,91 +1,100 @@
 import Link from "next/link";
 import PageShapes from "@/components/PageShapes";
+import styles from "./about.module.css";
 
 export const metadata = {
-  title: "About — Sprinting Ink",
-  description: "Learn about Sprinting Ink — a 3-minute creative writing game that trains your creativity, not your productivity.",
+  title: "About Sprinting Ink",
+  description: "Learn about Sprinting Ink, a 3-minute creative writing game that trains your creativity, not your productivity.",
 };
 
 export default function AboutPage() {
   return (
-    <div style={{ padding: "var(--space-3xl) 0", minHeight: "calc(100vh - var(--nav-height))", position: "relative", overflow: "hidden" }}>
+    <div className={styles.aboutPage}>
       <PageShapes page="about" />
       
-
-
-
-
-      <div className="container" style={{ maxWidth: "700px" }}>
-        <div className="text-center" style={{ marginBottom: "var(--space-3xl)" }}>
-          <h1 style={{ marginBottom: "var(--space-md)" }}>About Sprinting Ink</h1>
-          <p className="text-lg">
-            3-minute creative sprints to train your brain, not your productivity.
+      <div className={`container ${styles.aboutContainer}`}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>About Sprinting Ink</h1>
+          <p className={styles.subtitle}>
+            Three-minute creative sprints built to train your imagination instead of your typing speed.
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2xl)" }}>
-          <section>
-            <h2 style={{ marginBottom: "var(--space-md)" }}>What is this?</h2>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>What is this?</h2>
+          <div className={styles.textBlock}>
             <p>
-              Sprinting Ink is a creative writing game. You get a random, weird starter sentence. 
-              You have 3 minutes to continue it. If you stop typing for 5 seconds, your text starts 
-              to vanish — permanently. After time ends, your story goes into a public feed where 
-              others can vote on it, read it, and even continue your story.
+              Sprinting Ink is a creative writing game. You get a random starter sentence. 
+              You have exactly 3 minutes to keep the story going. Stop typing for 5 seconds, 
+              and your words start to burn away.
             </p>
-          </section>
-
-          <section>
-            <h2 style={{ marginBottom: "var(--space-md)" }}>Why?</h2>
             <p>
-              We believe creativity is a muscle. Most writing tools focus on output — word counts, 
-              deadlines, productivity metrics. We focus on the opposite: the raw act of thinking 
-              and writing under pressure, without overthinking, without editing, without looking back.
+              Once the clock hits zero, your draft hits the public feed for people to read, 
+              vote on, and even continue.
             </p>
-            <p style={{ marginTop: "var(--space-md)" }}>
-              The vanish mechanic isn&apos;t punishment — it&apos;s liberation. When you know your words 
-              might disappear, you stop trying to write something perfect and start writing something real.
-            </p>
-          </section>
+          </div>
+        </div>
 
-          <section>
-            <h2 style={{ marginBottom: "var(--space-md)" }}>How it helps</h2>
-            <div style={{ display: "grid", gap: "var(--space-md)" }}>
-              <div className="card">
-                <h4>🧠 Forced Creativity</h4>
-                <p style={{ marginTop: "var(--space-sm)" }}>
-                  Random prompts + time pressure = no overthinking. Your subconscious does the heavy lifting.
-                </p>
-              </div>
-              <div className="card">
-                <h4>📖 Exposure to Others</h4>
-                <p style={{ marginTop: "var(--space-sm)" }}>
-                  Reading other people&apos;s 3-minute stories sparks ideas you&apos;d never have on your own.
-                </p>
-              </div>
-              <div className="card">
-                <h4>🗳️ Feedback via Voting</h4>
-                <p style={{ marginTop: "var(--space-sm)" }}>
-                  &quot;People liked this style&quot; → subconscious learning. No harsh critique, just vibes.
-                </p>
-              </div>
-              <div className="card">
-                <h4>🔗 Story Chains</h4>
-                <p style={{ marginTop: "var(--space-sm)" }}>
-                  Continue someone else&apos;s story. Collaborative storytelling creates unexpected magic.
-                </p>
-              </div>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Why build it?</h2>
+          <div className={styles.textBlock}>
+            <p>
+              Creativity is a muscle that needs resistance. Normal writing apps care about 
+              word counts and deadlines. We care about the raw act of thinking under pressure. 
+              No overthinking. No editing. No looking back.
+            </p>
+            <p>
+              The vanish mechanic is not a punishment. It is liberation. Knowing your words 
+              might disappear forces you to stop trying to be perfect. You just write something real.
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>How it helps</h2>
+          <div className={styles.grid}>
+            <div className={styles.featureCard}>
+              <div className={styles.iconWrapper}>🧠</div>
+              <h4 className={styles.featureTitle}>Forced Action</h4>
+              <p className={styles.featureText}>
+                Random prompts paired with a ticking clock means zero time for hesitation. Your instinct takes over.
+              </p>
             </div>
-          </section>
+            
+            <div className={styles.featureCard}>
+              <div className={styles.iconWrapper}>📖</div>
+              <h4 className={styles.featureTitle}>Fresh Ideas</h4>
+              <p className={styles.featureText}>
+                Reading rapid-fire stories from strangers sparks concepts you would never brainstorm alone.
+              </p>
+            </div>
+            
+            <div className={styles.featureCard}>
+              <div className={styles.iconWrapper}>✨</div>
+              <h4 className={styles.featureTitle}>Vibe Check</h4>
+              <p className={styles.featureText}>
+                Getting upvotes tells you your style is working. No harsh critiques or long comments, just positive signals.
+              </p>
+            </div>
+            
+            <div className={styles.featureCard}>
+              <div className={styles.iconWrapper}>🔗</div>
+              <h4 className={styles.featureTitle}>Story Chains</h4>
+              <p className={styles.featureText}>
+                Picking up where someone else left off turns solo writing into a massive collaborative experiment.
+              </p>
+            </div>
+          </div>
+        </div>
 
-          <section className="text-center" style={{ padding: "var(--space-2xl) 0" }}>
-            <h2 style={{ marginBottom: "var(--space-md)" }}>Ready?</h2>
-            <p style={{ marginBottom: "var(--space-xl)" }}>
-              Your first sprint is free. No credit card needed.
-            </p>
-            <Link href="/register" className="btn btn-primary btn-lg">
-              Start Writing
-            </Link>
-          </section>
+        <div className={styles.ctaSection}>
+          <h2 className={styles.ctaTitle}>Ready to write?</h2>
+          <p className={styles.ctaText}>
+            Your first sprint is totally free. No credit card required.
+          </p>
+          <Link href="/register" className={styles.ctaButton}>
+            Start Writing
+          </Link>
         </div>
       </div>
     </div>
