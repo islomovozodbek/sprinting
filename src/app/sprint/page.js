@@ -285,7 +285,8 @@ function SprintPageInner() {
         if (subError) throw subError;
 
         // 3. Update participant_count on daily_prompts
-        await supabase.rpc("increment_participant_count", { prompt_date_val: dailyDate }).catch(() => {});
+        const { error: rpcError } = await supabase.rpc("increment_participant_count", { prompt_date_val: dailyDate });
+        if (rpcError) console.error("Participant count error:", rpcError);
 
         // 4. Compute updated streak
         const todayUTC = new Date().toISOString().split("T")[0];
