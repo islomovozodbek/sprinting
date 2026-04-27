@@ -21,6 +21,7 @@ const TIME_MODES = [
   { value: 2, label: "2 min", proOnly: true },
   { value: 3, label: "3 min", proOnly: false },
   { value: 5, label: "5 min", proOnly: true },
+  { value: 30, label: "30 min", proOnly: true },
 ];
 
 const VANISH_WARNING_MS = 2000;   // At 2s, 3-2-1 countdown begins
@@ -43,7 +44,7 @@ function SprintPageInner() {
 
   const getStreakData = useCallback(() => {
     if (!user) return { activeStreak: 0, multiplier: 1, bonusAura: 0, lapsed: false };
-    
+
     let activeStreak = user.currentStreak || 0;
     const todayUTC = new Date().toISOString().split("T")[0];
     const yesterday = new Date(Date.UTC(
@@ -51,7 +52,7 @@ function SprintPageInner() {
       new Date().getUTCMonth(),
       new Date().getUTCDate() - 1
     )).toISOString().split("T")[0];
-    
+
     // Defensive slicing in case DB returns ISO timestamps
     const lastSprintDate = user.lastDailyDate?.slice(0, 10) ?? null;
 
@@ -70,7 +71,7 @@ function SprintPageInner() {
     // If lastSprintDate === todayUTC, we stay at user.currentStreak (already updated today)
 
     const multiplier = activeStreak >= 3 ? 1.2 : 1;
-    
+
     let bonusAura = 0;
     // Bonus only applies once per day on the 7th day
     if (activeStreak === 7 && user.currentStreak !== 7) {
@@ -97,7 +98,7 @@ function SprintPageInner() {
   const [isCustomPrompt, setIsCustomPrompt] = useState(false);
   const [userPrompt, setUserPrompt] = useState("");
   const [isHardcore, setIsHardcore] = useState(false);
-  
+
   const [text, setText] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
@@ -160,7 +161,7 @@ function SprintPageInner() {
     setTheme(document.documentElement.getAttribute("data-theme") || "light");
     return () => observer.disconnect();
   }, []);
-  
+
   const handleReroll = () => {
     if (user?.tier !== "pro" && rerolls <= 0) return;
     setPrompt(getRandomPrompt());
@@ -168,7 +169,7 @@ function SprintPageInner() {
       setRerolls((r) => r - 1);
     }
   };
-  
+
   const lastKeypressRef = useRef(Date.now());
   const inactivityIntervalRef = useRef(null);
   const mainTimerRef = useRef(null);
@@ -176,12 +177,12 @@ function SprintPageInner() {
   const textAreaRef = useRef(null);
   const scrollSyncRef = useRef(null);
   const timerInitialRef = useRef(timeMode * 60);
-  
+
   // Calculate locked text boundary dynamically
   const getLockedLength = useCallback(() => {
     const segments = text.split(/(?<=[.?!])\s+/);
     if (segments.length <= 1) return 0;
-    
+
     // Everything except the last segment is locked
     const activeSegmentLength = segments[segments.length - 1].length;
     return text.length - activeSegmentLength;
@@ -215,10 +216,10 @@ function SprintPageInner() {
     setIsPublishing(true);
     const trimmedText = text.trim();
     const wordCount = trimmedText ? trimmedText.split(/\s+/).length : 0;
-    
+
     const baseAuraGained = Math.floor((wordCount * 2) / 5);
     const auraGained = Math.floor(baseAuraGained * streakMultiplier) + bonusAura;
-    
+
     const timerMinutes = Math.floor(timerInitialRef.current / 60);
     const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
@@ -247,14 +248,14 @@ function SprintPageInner() {
         } else {
           const { data: newPrompt, error: insertErr } = await supabase
             .from("daily_prompts")
-            .insert({ 
-              prompt_date: dailyDate, 
-              prompt_id: dailyPromptData?.id || "d-today", 
-              prompt_text: dailyPromptData?.text || "Daily Sprint" 
+            .insert({
+              prompt_date: dailyDate,
+              prompt_id: dailyPromptData?.id || "d-today",
+              prompt_text: dailyPromptData?.text || "Daily Sprint"
             })
             .select("id")
             .single();
-          
+
           if (insertErr || !newPrompt) {
             console.error("Daily prompt creation error:", insertErr);
             throw new Error(`Could not create daily prompt record: ${insertErr?.message || "Unknown error"}`);
@@ -278,8 +279,8 @@ function SprintPageInner() {
             content: text.trim(),
             word_count: wordCount,
             submitted: true,
-          }, { 
-            onConflict: "daily_prompt_id, author_id" 
+          }, {
+            onConflict: "daily_prompt_id, author_id"
           });
 
         if (subError) throw subError;
@@ -389,7 +390,7 @@ function SprintPageInner() {
           last_daily_date: todayUTC,
           earned_achievements: combinedAchievements,
         };
-        
+
         const { error: profileError } = await supabase
           .from("profiles")
           .update(profileUpdate)
@@ -418,7 +419,7 @@ function SprintPageInner() {
       }
     } catch (err) {
       console.error("Error publishing sprint:", err);
-      
+
       // Basic offline fallback (only for regular mode)
       if (!isDailyMode) {
         try {
@@ -441,7 +442,7 @@ function SprintPageInner() {
       } else {
         alert(`Failed to save your daily sprint: ${err.message || "Unknown error"}`);
       }
-      
+
       setIsPublishing(false);
     }
   };
@@ -449,13 +450,13 @@ function SprintPageInner() {
   const handleShare = async () => {
     const node = document.getElementById("receipt-card");
     if (!node) return;
-    
+
     try {
       const { toBlob } = await import("html-to-image");
-      const blob = await toBlob(node, { 
-        quality: 1, 
+      const blob = await toBlob(node, {
+        quality: 1,
         pixelRatio: 2,
-        fontEmbedCSS: '', 
+        fontEmbedCSS: '',
         filter: (el) => {
           if (el.classList?.contains('ninja-cursor-wrapper')) return false;
           if (el.tagName === 'SCRIPT') return false;
@@ -464,11 +465,11 @@ function SprintPageInner() {
       });
 
       if (!blob) throw new Error("Image generation failed");
-      
+
       const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
       const fileName = `sprinting_ink_${Date.now()}.png`;
       const file = new File([blob], fileName, { type: 'image/png' });
-      
+
       const canShare = typeof navigator !== "undefined" && navigator.share && navigator.canShare?.({ files: [file] });
 
       if (canShare) {
@@ -481,7 +482,7 @@ function SprintPageInner() {
           return; // Success, user handled it via native menu
         } catch (shareErr) {
           // If the error is NOT a user cancel (AbortError), proceed to download fallback
-          if (shareErr.name === 'AbortError') return; 
+          if (shareErr.name === 'AbortError') return;
           console.error("Native share failed, using download fallback:", shareErr);
         }
       }
@@ -493,8 +494,8 @@ function SprintPageInner() {
       link.href = dataUrl;
       link.click();
       setTimeout(() => URL.revokeObjectURL(dataUrl), 2000);
-      
-    } catch(err) {
+
+    } catch (err) {
       console.error("Oops, saving failed:", err);
       alert("We couldn't save the image. You can try taking a screenshot or use a different browser!");
     }
@@ -519,7 +520,7 @@ function SprintPageInner() {
           if (!deletionTimeoutRef.current) {
             const runDeletion = () => {
               const timeSinceTrigger = Date.now() - lastKeypressRef.current - VANISH_TRIGGER_MS;
-              
+
               const speedMs = Math.max(
                 MIN_DELETE_MS,
                 MIN_DELETE_MS + (BASE_DELETE_MS - MIN_DELETE_MS) * Math.exp(-0.002 * timeSinceTrigger)
@@ -548,16 +549,16 @@ function SprintPageInner() {
 
   const handleTextChange = (e) => {
     const newVal = e.target.value;
-    
+
     if (isHardcore) {
-      if (newVal.length < text.length) return; 
+      if (newVal.length < text.length) return;
     } else {
       const lockedLength = getLockedLength();
       if (newVal.length < lockedLength && newVal.length < text.length) return;
     }
 
     setText(newVal);
-    
+
     lastKeypressRef.current = Date.now();
     setInactivityMs(0);
     setIsTyping(true);
@@ -638,60 +639,60 @@ function SprintPageInner() {
       textAreaRef.current?.focus();
     }, 100);
 
-      // Anti-Reroll & Daily Progress Implementation
-      try {
-        // Increment sprints_today right as timer starts
-        await supabase
-          .from("profiles")
-          .update({ sprints_today: (user.sprintsToday || 0) + 1 })
-          .eq("id", user.uid);
-          
-        if (updateLocalUser) {
-          updateLocalUser({ sprintsToday: (user.sprintsToday || 0) + 1 });
-        }
+    // Anti-Reroll & Daily Progress Implementation
+    try {
+      // Increment sprints_today right as timer starts
+      await supabase
+        .from("profiles")
+        .update({ sprints_today: (user.sprintsToday || 0) + 1 })
+        .eq("id", user.uid);
 
-        // If daily mode, ensure prompt row exists and insert pending submission
-        if (isDailyMode && dailyDate) {
-          let promptRow;
-          const { data: existingPrompt } = await supabase
-            .from("daily_prompts")
-            .select("id")
-            .eq("prompt_date", dailyDate)
-            .maybeSingle();
-
-          if (existingPrompt) {
-            promptRow = existingPrompt;
-          } else {
-            const { data: newPrompt } = await supabase
-              .from("daily_prompts")
-              .insert({ 
-                prompt_date: dailyDate, 
-                prompt_id: dailyPromptData?.id || "d-today", 
-                prompt_text: dailyPromptData?.text || "Daily Sprint" 
-              })
-              .select("id")
-              .single();
-            promptRow = newPrompt;
-          }
-
-          if (promptRow) {
-            await supabase.from("daily_submissions").upsert({
-              daily_prompt_id: promptRow.id,
-              author_id: user.uid,
-              author_username: user.username,
-              is_pro_user: user.tier === "pro",
-              submitted: false,
-              title: "Pending...",
-              content: "Pending...",
-              word_count: 0
-            }, { 
-              onConflict: "daily_prompt_id, author_id" 
-            });
-          }
-        }
-      } catch (e) {
-        console.error("Failed to initialize sprint server data:", e);
+      if (updateLocalUser) {
+        updateLocalUser({ sprintsToday: (user.sprintsToday || 0) + 1 });
       }
+
+      // If daily mode, ensure prompt row exists and insert pending submission
+      if (isDailyMode && dailyDate) {
+        let promptRow;
+        const { data: existingPrompt } = await supabase
+          .from("daily_prompts")
+          .select("id")
+          .eq("prompt_date", dailyDate)
+          .maybeSingle();
+
+        if (existingPrompt) {
+          promptRow = existingPrompt;
+        } else {
+          const { data: newPrompt } = await supabase
+            .from("daily_prompts")
+            .insert({
+              prompt_date: dailyDate,
+              prompt_id: dailyPromptData?.id || "d-today",
+              prompt_text: dailyPromptData?.text || "Daily Sprint"
+            })
+            .select("id")
+            .single();
+          promptRow = newPrompt;
+        }
+
+        if (promptRow) {
+          await supabase.from("daily_submissions").upsert({
+            daily_prompt_id: promptRow.id,
+            author_id: user.uid,
+            author_username: user.username,
+            is_pro_user: user.tier === "pro",
+            submitted: false,
+            title: "Pending...",
+            content: "Pending...",
+            word_count: 0
+          }, {
+            onConflict: "daily_prompt_id, author_id"
+          });
+        }
+      }
+    } catch (e) {
+      console.error("Failed to initialize sprint server data:", e);
+    }
   };
 
   const [timerInitial, setTimerInitial] = useState(0);
@@ -706,14 +707,14 @@ function SprintPageInner() {
     // Split by sentence endings but capture the whitespace that follows them
     // so we can preserve newlines and multiple spaces for perfect wrap-sync.
     const segments = text.split(/((?<=[.?!])\s+)/);
-    
+
     const elements = [];
     for (let i = 0; i < segments.length; i += 2) {
       const segment = segments[i];
       const spacing = segments[i + 1] || "";
       const isLast = i >= segments.length - 2;
       const isBlurred = !isLast;
-      
+
       elements.push(
         <span key={i} className={`${styles.fogSegment} ${isBlurred ? styles.blurred : ""}`}>
           {segment}{spacing}
@@ -763,13 +764,13 @@ function SprintPageInner() {
                         Sprint Locked
                       </strong>
                       <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "24px", lineHeight: 1.6 }}>
-                        {dailyLock === 'submitted' 
+                        {dailyLock === 'submitted'
                           ? "You've already submitted today's sprint! Check the results on the Daily page."
                           : "You already viewed today's prompt. The 'blind write' rule means you only get one shot per day."
                         }
                       </p>
                       <Link href="/daily" className="btn btn-primary" style={{ padding: "12px 24px" }}>
-                         View Daily Results
+                        View Daily Results
                       </Link>
                     </div>
                   </div>
@@ -803,7 +804,7 @@ function SprintPageInner() {
                     </button>
                   </>
                 )}
-                
+
                 <div style={{ marginTop: "var(--space-md)" }}>
                   <Link href="/daily" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                     ← Back to Daily
@@ -840,10 +841,10 @@ function SprintPageInner() {
                         <label>Custom Duration</label>
                       </div>
                       <div className={styles.customTimeInput}>
-                        <input 
-                          type="number" 
-                          min="1" 
-                          max="1440" 
+                        <input
+                          type="number"
+                          min="1"
+                          max="1440"
                           placeholder="Min"
                           value={userTime}
                           onChange={(e) => {
@@ -862,16 +863,16 @@ function SprintPageInner() {
                           <label>Custom Prompt</label>
                         </div>
                         <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "0.85rem" }}>
-                          <input 
-                            type="checkbox" 
-                            checked={isCustomPrompt} 
-                            onChange={(e) => setIsCustomPrompt(e.target.checked)} 
+                          <input
+                            type="checkbox"
+                            checked={isCustomPrompt}
+                            onChange={(e) => setIsCustomPrompt(e.target.checked)}
                           />
                           Enable
                         </label>
                       </div>
                       {isCustomPrompt && (
-                        <textarea 
+                        <textarea
                           className={styles.customPromptInput}
                           placeholder="Type your own starter sentence..."
                           value={userPrompt}
@@ -884,10 +885,10 @@ function SprintPageInner() {
 
                 <div style={{ marginTop: "24px", padding: "16px", backgroundColor: "var(--bg-elevated)", borderRadius: "8px", border: "1px solid var(--border)", textAlign: "left" }}>
                   <label style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontWeight: "600", fontSize: "1.05rem" }}>
-                    <input 
-                      type="checkbox" 
-                      checked={isHardcore} 
-                      onChange={(e) => setIsHardcore(e.target.checked)} 
+                    <input
+                      type="checkbox"
+                      checked={isHardcore}
+                      onChange={(e) => setIsHardcore(e.target.checked)}
                       style={{ width: "18px", height: "18px", accentColor: "var(--danger)" }}
                     />
                     Enable Hardcore Mode
@@ -943,7 +944,7 @@ function SprintPageInner() {
         )}
 
         <div className={styles.sprintActive}>
-          
+
           <div className={styles.sprintHeader}>
             <div className={`${styles.timer} ${timeLeft <= 30 ? styles.timerUrgent : ""}`}>
               {formatTime(timeLeft)}
@@ -952,7 +953,7 @@ function SprintPageInner() {
               {isDailyMode && <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)", marginRight: "8px" }}>🗓️ DAILY</span>}
               &ldquo;{prompt?.text}&rdquo;
               {!isDailyMode && (
-                <button 
+                <button
                   className={styles.rerollBtn}
                   onClick={handleReroll}
                   disabled={user?.tier !== "pro" && rerolls <= 0}
@@ -971,7 +972,7 @@ function SprintPageInner() {
             <div className={styles.textOverlay} ref={scrollSyncRef}>
               {renderTextOverlay()}
             </div>
-            
+
             <textarea
               ref={textAreaRef}
               className={styles.textArea}
@@ -987,9 +988,9 @@ function SprintPageInner() {
               spellCheck="false"
             />
 
-            <NinjaCursor 
+            <NinjaCursor
               targetRef={textAreaRef}
-              isActive={isTyping || document.activeElement === textAreaRef.current} 
+              isActive={isTyping || document.activeElement === textAreaRef.current}
             />
           </div>
 
@@ -1006,7 +1007,7 @@ function SprintPageInner() {
           <h1 style={isHardcore && wordCount === 0 ? { color: "var(--danger)" } : {}}>
             {isHardcore && wordCount === 0 ? "Major skill issue detected." : "Time's Up"}
           </h1>
-          
+
           <div className={styles.completeStats}>
             <div className={styles.completeStat}>
               <strong>{wordCount}</strong>
@@ -1018,7 +1019,7 @@ function SprintPageInner() {
             </div>
             <div className={styles.completeStat}>
               <strong style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "4px" }}>
-                +{Math.floor((Math.floor((wordCount * 2) / 5)) * streakMultiplier) + bonusAura} 
+                +{Math.floor((Math.floor((wordCount * 2) / 5)) * streakMultiplier) + bonusAura}
                 {streakMultiplier > 1 && <span style={{ fontSize: "0.8rem", color: "var(--accent)" }} title="1.2x Streak Bonus">🔥</span>}
                 {bonusAura > 0 && <span style={{ fontSize: "0.8rem", color: "var(--accent)" }} title="7-Day Streak Bonus">🎁</span>}
               </strong>
@@ -1029,41 +1030,41 @@ function SprintPageInner() {
               <span>Day Streak</span>
             </div>
           </div>
-          
+
           {bonusAura > 0 && (
-             <div style={{ padding: "12px", background: "rgba(var(--accent-rgb), 0.15)", color: "var(--accent)", borderRadius: "8px", marginTop: "16px", fontWeight: "bold" }}>
-                🎉 7-Day Streak Achieved! +150 Bonus Aura!
-             </div>
+            <div style={{ padding: "12px", background: "rgba(var(--accent-rgb), 0.15)", color: "var(--accent)", borderRadius: "8px", marginTop: "16px", fontWeight: "bold" }}>
+              🎉 7-Day Streak Achieved! +150 Bonus Aura!
+            </div>
           )}
           {streakMultiplier > 1 && bonusAura === 0 && (
-             <div style={{ fontSize: "0.85rem", color: "var(--accent)", marginTop: "8px", fontWeight: "600" }}>
-                🔥 1.2x Streak Multiplier Applied
-             </div>
+            <div style={{ fontSize: "0.85rem", color: "var(--accent)", marginTop: "8px", fontWeight: "600" }}>
+              🔥 1.2x Streak Multiplier Applied
+            </div>
           )}
 
           <div style={{ margin: "32px 0", textAlign: "left", display: "flex", flexDirection: "column", gap: "16px" }}>
-             <div className="input-group">
-                <label className="input-label">
-                  Story Title
-                  {showTitleError && <span style={{ color: "var(--danger)", marginLeft: "8px", fontSize: "0.85em", fontWeight: "normal" }}>* Required</span>}
-                </label>
-                <input 
-                  type="text" 
-                  className="input" 
-                  style={showTitleError ? { borderColor: "var(--danger)" } : {}}
-                  placeholder="Give your sprint a name..." 
-                  value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                    if (showTitleError) setShowTitleError(false);
-                  }}
-                />
-             </div>
+            <div className="input-group">
+              <label className="input-label">
+                Story Title
+                {showTitleError && <span style={{ color: "var(--danger)", marginLeft: "8px", fontSize: "0.85em", fontWeight: "normal" }}>* Required</span>}
+              </label>
+              <input
+                type="text"
+                className="input"
+                style={showTitleError ? { borderColor: "var(--danger)" } : {}}
+                placeholder="Give your sprint a name..."
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  if (showTitleError) setShowTitleError(false);
+                }}
+              />
+            </div>
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "center" }}>
-            <button 
-              className="btn btn-primary" 
+            <button
+              className="btn btn-primary"
               onClick={handlePublish}
               disabled={isPublishing}
             >
@@ -1083,14 +1084,14 @@ function SprintPageInner() {
                     const achDef = getAchievementById("negative-aura");
                     if (achDef) showAchievementToasts([achDef]);
                   }
-                } catch(e) {}
+                } catch (e) { }
                 setPhase("setup");
               }}>
                 Trash & Retry
               </button>
             )}
           </div>
-          
+
           {/* HIDDEN NODE FOR IMAGE CAPTURE */}
           <div style={{ position: "fixed", top: 0, left: 0, opacity: 0, pointerEvents: "none", zIndex: -1 }}>
             <div id="receipt-card" style={{
@@ -1106,8 +1107,8 @@ function SprintPageInner() {
               justifyContent: "center",
               alignItems: "center"
             }}>
-              
-              
+
+
               {prompt?.text && (
                 <div style={{
                   fontFamily: "'Lora', Georgia, serif",
@@ -1123,7 +1124,7 @@ function SprintPageInner() {
                   "{prompt.text}"
                 </div>
               )}
-              
+
               <div style={{
                 fontFamily: "'Source Serif 4', 'Georgia', serif",
                 fontSize: "1.45rem",
@@ -1132,9 +1133,9 @@ function SprintPageInner() {
                 textAlign: "left",
                 width: "100%",
                 maxWidth: "360px",
-                display: "-webkit-box", 
-                WebkitLineClamp: 14, 
-                WebkitBoxOrient: "vertical", 
+                display: "-webkit-box",
+                WebkitLineClamp: 14,
+                WebkitBoxOrient: "vertical",
                 overflow: "hidden",
                 whiteSpace: "pre-wrap",
                 position: "relative",
@@ -1142,25 +1143,25 @@ function SprintPageInner() {
               }}>
                 {text || "..."}
               </div>
-              
-              <div style={{ 
-                marginTop: "40px", 
+
+              <div style={{
+                marginTop: "40px",
                 fontFamily: "'Lora', Georgia, serif",
-                width: "100%", 
+                width: "100%",
                 maxWidth: "350px",
                 textAlign: "right",
                 color: theme === "dark" ? "#807B75" : "#8B7355",
                 fontSize: "1.15rem",
                 fontStyle: "italic"
               }}>
-                 — @{user?.username || "writer"}
+                — @{user?.username || "writer"}
               </div>
 
-              <div style={{ 
-                position: "absolute", 
-                bottom: "35px", 
-                left: "0", 
-                width: "100%", 
+              <div style={{
+                position: "absolute",
+                bottom: "35px",
+                left: "0",
+                width: "100%",
                 textAlign: "center",
                 fontFamily: "'Inter', sans-serif",
                 color: theme === "dark" ? "#383532" : "#C4B493",
@@ -1168,11 +1169,11 @@ function SprintPageInner() {
                 letterSpacing: "0.25em",
                 textTransform: "uppercase"
               }}>
-                 Sprinting Ink
+                Sprinting Ink
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
