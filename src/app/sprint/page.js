@@ -16,7 +16,6 @@ import { computeEarnedAchievements, getNewlyUnlocked, getAchievementById } from 
 import { useAchievementToasts } from "@/components/AchievementToast";
 
 const TIME_MODES = [
-  { value: 0.5, label: "30 sec", proOnly: false },
   { value: 1, label: "1 min", proOnly: true },
   { value: 2, label: "2 min", proOnly: true },
   { value: 3, label: "3 min", proOnly: false },
@@ -91,7 +90,7 @@ function SprintPageInner() {
 
 
   const [phase, setPhase] = useState("setup");
-  const [timeMode, setTimeMode] = useState(0.5);
+  const [timeMode, setTimeMode] = useState(3);
   const [userTime, setUserTime] = useState(""); // Custom minutes for Pro
 
   const [prompt, setPrompt] = useState(isDailyMode && dailyPromptData ? dailyPromptData : null);
