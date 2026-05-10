@@ -505,6 +505,13 @@ function SprintPageInner() {
     if (phase !== "active") return;
 
     inactivityIntervalRef.current = setInterval(() => {
+      // Don't trigger the vanish logic if the board is empty
+      if (!textAreaRef.current?.value.trim()) {
+        lastKeypressRef.current = Date.now();
+        setInactivityMs(0);
+        return;
+      }
+
       const now = Date.now();
       const elapsed = now - lastKeypressRef.current;
       setInactivityMs(elapsed);
