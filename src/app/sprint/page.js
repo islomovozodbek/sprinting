@@ -372,7 +372,6 @@ function SprintPageInner() {
         const newAura = (user.aura || 0) + auraGained;
         const updatedTotalStories = (user.totalStories || 0) + 1;
         const newLongestStreak = Math.max(newStreak, Number(user.longestStreak || 0));
-
         // Compute achievements against the post-save stats
         const postSaveUser = { ...user, totalStories: updatedTotalStories, currentStreak: newStreak, longestStreak: newLongestStreak };
         const fullEarned = computeEarnedAchievements(postSaveUser, { wordCount, timerMinutes, isHardcore, isMobile });
@@ -505,13 +504,6 @@ function SprintPageInner() {
     if (phase !== "active") return;
 
     inactivityIntervalRef.current = setInterval(() => {
-      // Don't trigger the vanish logic if the board is empty
-      if (!textAreaRef.current?.value.trim()) {
-        lastKeypressRef.current = Date.now();
-        setInactivityMs(0);
-        return;
-      }
-
       const now = Date.now();
       const elapsed = now - lastKeypressRef.current;
       setInactivityMs(elapsed);

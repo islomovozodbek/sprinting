@@ -214,16 +214,16 @@ export default function DailyPage() {
       else { newDownvoters.push(user.uid); newUpvoters = newUpvoters.filter(id => id !== user.uid); }
     }
 
-    const newNetScore = newUpvoters.length - newDownvoters.length;
-    const { error } = await supabase
-      .from("daily_submissions")
-      .update({ upvoters: newUpvoters, downvoters: newDownvoters, net_score: newNetScore })
-      .eq("id", submissionId);
+    const { data: result, error } = await supabase.rpc("vote_daily_submission", {
+      p_submission_id: submissionId,
+      p_user_id: user.uid,
+      p_direction: direction
+    });
 
-    if (!error) {
+    if (!error && result) {
       setSubmissions(prev =>
         prev.map(s => s.id === submissionId
-          ? { ...s, upvoters: newUpvoters, downvoters: newDownvoters, net_score: newNetScore }
+          ? { ...s, upvoters: result.upvoters, downvoters: result.downvoters, net_score: result.net_score }
           : s
         )
       );
