@@ -47,6 +47,9 @@ export const metadata = {
   description:
     "Train your creativity, not your productivity. Get a random prompt, write for 3 minutes, and share your story with the world. Stop typing and your words vanish.",
   keywords: "creative writing, writing sprints, storytelling, writing game, creativity",
+  verification: {
+    google: "RGQHQc8CuLqSta4cI74WpYGUDKBWS3kDRPGb-YxU8aQ",
+  },
   openGraph: {
     title: "Sprinting Ink — 3-Minute Creative Writing Sprints",
     description: "Train your creativity, not your productivity.",
