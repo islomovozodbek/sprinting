@@ -34,12 +34,12 @@ export default function SearchPage() {
       const [byUsername, byDisplayName] = await Promise.all([
         supabase
           .from("profiles")
-          .select("id, username, display_name, photo_url, tier, total_stories, level, profile_color, is_og")
+          .select("id, username, display_name, photo_url, total_stories, level, profile_color, is_og")
           .ilike("username", term)
           .limit(15),
         supabase
           .from("profiles")
-          .select("id, username, display_name, photo_url, tier, total_stories, level, profile_color, is_og")
+          .select("id, username, display_name, photo_url, total_stories, level, profile_color, is_og")
           .ilike("display_name", term)
           .limit(15),
       ]);
@@ -139,10 +139,9 @@ export default function SearchPage() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 600, display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
-                      <span className={user.tier === "pro" ? `username-pro username-color-${user.profile_color}` : ""}>
+                      <span className={`username-custom username-color-${user.profile_color || "derby"}`}>
                         {user.display_name || user.username}
                       </span>
-                      {user.tier === "pro" && <span className="badge badge-pro">PRO</span>}
                       {user.is_og && <span className="badge badge-og">OG</span>}
                     </div>
                     <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>

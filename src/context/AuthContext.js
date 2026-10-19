@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
             bio: data.bio,
             needsOnboarding: data.bio === "PENDING_ONBOARDING",
             photoURL: data.photo_url,
-            tier: data.tier || "basic",
             totalStories: data.total_stories || 0,
             totalWords: data.total_words || 0,
             totalUpvotesReceived: data.total_upvotes_received || 0,
@@ -78,7 +77,6 @@ export function AuthProvider({ children }) {
             display_name: sessionUser.user_metadata?.full_name || sessionUser.email.split("@")[0],
             photo_url: sessionUser.user_metadata?.avatar_url || null,
             bio: "PENDING_ONBOARDING",
-            tier: "basic",
             total_stories: 0,
             total_words: 0,
             total_upvotes_received: 0,
@@ -124,7 +122,6 @@ export function AuthProvider({ children }) {
             bio: newProfile.bio,
             needsOnboarding: true,
             photoURL: newProfile.photo_url,
-            tier: "basic",
             totalStories: 0,
             totalWords: 0,
             totalUpvotesReceived: 0,
@@ -151,7 +148,6 @@ export function AuthProvider({ children }) {
           setUser({
             uid: sessionUser.id,
             email: sessionUser.email,
-            tier: "basic",
           });
         }
       }
@@ -291,7 +287,6 @@ export function AuthProvider({ children }) {
       bio: profileData?.bio || null,
       needsOnboarding: false, // Standard registration handles username
       photoURL: profileData?.photo_url || null,
-      tier: profileData?.tier || "basic",
       totalStories: profileData?.total_stories || 0,
       totalWords: profileData?.total_words || 0,
       totalUpvotesReceived: profileData?.total_upvotes_received || 0,

@@ -22,7 +22,6 @@ export default function DashboardPage() {
   const [myStories, setMyStories] = useState([]);
   const [loadingStories, setLoadingStories] = useState(true);
   const [activeTab, setActiveTab] = useState("library");
-  const [proEnabled, setProEnabled] = useState(false);
   const [syncingOffline, setSyncingOffline] = useState(false);
   const [offlineSprints, setOfflineSprints] = useState([]);
 
@@ -62,8 +61,6 @@ export default function DashboardPage() {
       return;
     }
     if (user) {
-      setProEnabled(user.tier === "pro");
-      setProEnabled(user.tier === "pro");
       fetchStories();
       checkOfflineSprints();
     }
@@ -89,7 +86,6 @@ export default function DashboardPage() {
         const { error: storyError } = await supabase.from("stories").insert({
           author_id: user.uid,
           author_username: user.username,
-          is_pro_user: user.tier === "pro",
           title: sprint.title,
           content: sprint.content,
           starter_sentence: sprint.starter_sentence,
@@ -240,7 +236,6 @@ export default function DashboardPage() {
     }
   };
 
-  const handleTogglePro = () => setProEnabled(!proEnabled);
 
   // ── Settings handlers ──────────────────────────────────────────────────
   const saveProfileColor = async (color) => {
@@ -343,10 +338,9 @@ export default function DashboardPage() {
 
             <div className={styles.profileInfo}>
               <div className={styles.profileName}>
-                <span className={proEnabled ? `username-pro username-color-${user.profileColor}` : ""}>
+                <span className={`username-custom username-color-${user.profileColor || "derby"}`}>
                   @{user.username || "writer"}
                 </span>
-                {proEnabled && <span className="badge badge-pro">PRO</span>}
                 {user.isOG && <span className="badge badge-og">OG</span>}
               </div>
               <h2 style={{ marginBottom: "8px" }}>{user.displayName || user.username}</h2>
@@ -514,25 +508,12 @@ export default function DashboardPage() {
             {activeTab === "settings" && (
               <ScrollReveal animation="fadeUp" delay={200}>
                 <h2>Settings</h2>
-                <p style={{ marginBottom: "24px", color: "var(--text-muted)" }}>Manage your account preferences and Pro subscription.</p>
+                <p style={{ marginBottom: "24px", color: "var(--text-muted)" }}>Manage your account preferences.</p>
 
                 <div className={styles.settingsSection}>
-                  <h3>Pro Features</h3>
+                  <h3>Appearance</h3>
 
                   <div className={styles.settingsRow}>
-                    <div className={styles.settingLabel}>
-                      <h4>Sprinting Ink Pro</h4>
-                      <p>Unlock custom UI themes, infinite rerolls, and advanced exports.</p>
-                    </div>
-                    <div
-                      className={`${styles.toggleSwitch} ${proEnabled ? styles.active : ""}`}
-                      onClick={handleTogglePro}
-                    >
-                      <div className={styles.toggleHandle}></div>
-                    </div>
-                  </div>
-
-                  <div className={styles.settingsRow} style={{ opacity: proEnabled ? 1 : 0.5, pointerEvents: proEnabled ? "auto" : "none" }}>
                     <div className={styles.settingLabel}>
                       <h4>Custom Username Color</h4>
                       <p>Select your signature aesthetic for the global Leaderboards.</p>

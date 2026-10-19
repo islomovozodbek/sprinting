@@ -87,8 +87,7 @@ export default function LeaderboardPage() {
                         {(u.username || "U")[0].toUpperCase()}
                       </div>
                       <div className={styles.leaderName}>
-                        <span className={u.tier === "pro" ? `username-pro username-color-${u.profile_color}` : ""}>@{u.username}</span>
-                        {u.tier === "pro" && <span className="badge badge-pro" style={{ fontSize: '0.65rem', marginLeft: '6px' }}>PRO</span>}
+                        <span className={`username-custom username-color-${u.profile_color || "derby"}`}>@{u.username}</span>
                       </div>
                     </div>
 

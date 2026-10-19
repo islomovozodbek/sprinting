@@ -115,10 +115,9 @@ export default function NetworkPage() {
                 </div>
                 <div className={styles.profileInfo}>
                   <div className={styles.profileName}>
-                    <span className={profile.tier === "pro" ? "username-shiny" : ""}>
+                    <span className={`username-custom username-color-${profile.profile_color || "derby"}`}>
                       {profile.display_name || profile.username}
                     </span>
-                    {profile.tier === "pro" && <span className="badge badge-pro" style={{ transform: "scale(0.8)", marginLeft: "8px" }}>PRO</span>}
                   </div>
                   <div className={styles.profileUsername}>@{profile.username}</div>
                 </div>

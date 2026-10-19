@@ -149,10 +149,9 @@ export default function ProfilePage() {
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.profileName}>
-              <h1 className={profileUser.tier === "pro" ? "username-shiny" : ""}>
+              <h1 className={`username-custom username-color-${profileUser.profile_color || "derby"}`}>
                 {profileUser.display_name || profileUser.username}
               </h1>
-              {profileUser.tier === "pro" && <span className="badge badge-pro">PRO</span>}
               {profileUser.is_og && <span className="badge badge-og">OG</span>}
             </div>
             <div className={styles.profileUsername}>@{profileUser.username}</div>

@@ -2,24 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import styles from "./page.module.css";
-import pricingStyles from "./pricing/pricing.module.css";
 import MiniSprintDemo from "@/components/MiniSprintDemo";
 import FogOfWarDemo from "@/components/FogOfWarDemo";
 import BurnDemo from "@/components/BurnDemo";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageShapes from "@/components/PageShapes";
-
-const HandCircle = () => (
-  <svg className={pricingStyles.circleSvg} viewBox="0 0 100 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
-      className={pricingStyles.circlePath} 
-      d="M15,20 C15,10 85,5 85,20 C85,35 25,35 15,20 C10,10 40,5 60,8" 
-    />
-  </svg>
-);
 
 function ScribbleLine() {
   return (
@@ -39,8 +28,7 @@ function ScribbleCircle() {
 }
 
 export default function Home() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const { user } = useAuth();
   const [authError, setAuthError] = useState("");
 
 
@@ -93,7 +81,7 @@ export default function Home() {
 
           <ScrollReveal animation="fadeUp" delay={300}>
             <div className={styles.heroCTA}>
-              <Link href="/register" className="btn btn-primary btn-lg">
+              <Link href={user ? "/sprint" : "/register"} className="btn btn-primary btn-lg">
                 Start Writing — It&apos;s Free
               </Link>
             </div>
@@ -168,70 +156,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Teaser */}
-      <section className={styles.pricingTeaser}>
-        <ScrollReveal animation="fadeUp" delay={0}>
+      <section className={styles.freeSection}>
+        <ScrollReveal animation="fadeUp">
           <div className="container">
-            <div className={pricingStyles.pricingHeader}>
-              <svg style={{ width: 60, margin: "0 auto 24px", color: "var(--accent)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-              </svg>
-              <h2>Unlock your full creative potential</h2>
-              <p>Our pricing is as minimal as our interface. Choose the plan that fits your writing journey.</p>
-            </div>
-
-            <div className={pricingStyles.plansWrapper}>
-              <div className={pricingStyles.plansLineup}>
-
-                <ScrollReveal animation="slideLeft" delay={100} className={pricingStyles.planCard}>
-                  <div className={pricingStyles.planName}>Free Tier</div>
-                  <div style={{ height: "24px" }}></div>
-
-                  <ul className={pricingStyles.planFeatures}>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> 5 Sprints per day</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> 3-Minute Sprints</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> The Fog of War (Blur)</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Pause and Burn (5s rule)</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> 2,000+ Standard Prompts</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Global Story Feed</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Public Leaderboard</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> XP & Leveling System</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Daily Writing Streaks</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Standard Text Export</li>
-                  </ul>
-
-                  <Link href="/register" style={{ textDecoration: "none" }}>
-                    <button className={pricingStyles.planBtn}>Start Writing Free</button>
-                  </Link>
-                </ScrollReveal>
-
-                <ScrollReveal animation="slideRight" delay={200} className={pricingStyles.planCard}>
-                  <div className={pricingStyles.planName}>Pro Tier</div>
-                  <div style={{ height: "24px" }}></div>
-
-                  <div className={pricingStyles.handDrawnCircle}>
-                    <HandCircle />
-                    <span>The Ultimate Experience</span>
-                  </div>
-
-                  <ul className={pricingStyles.planFeatures}>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Everything in Free, plus:</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Unlimited daily sprints</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> 1, 2, 5 & 10 min modes</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Custom Editor Themes</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Advanced PDF Exports</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Private Sprint Mode</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Writing Heatmaps & Stats</li>
-                    <li><span className={pricingStyles.checkIcon}>✓</span> Shiny Pro Identity</li>
-                  </ul>
-
-                  <Link href="/pricing" style={{ textDecoration: "none" }}>
-                    <button className={`${pricingStyles.planBtn} ${pricingStyles.planBtnPrimary}`}>View Pro Plans</button>
-                  </Link>
-                </ScrollReveal>
-
-              </div>
-            </div>
+            <h2>Free to write. Free to explore.</h2>
+            <p>Unlimited sprints, custom prompts, and your own writing pace. Every feature is free for everyone.</p>
+            <Link href={user ? "/sprint" : "/register"} className="btn btn-primary btn-lg">
+              Start Writing
+            </Link>
           </div>
         </ScrollReveal>
       </section>
@@ -254,7 +186,7 @@ export default function Home() {
               <h4>Explore</h4>
               <Link href="/feed">Story Feed</Link>
               <Link href="/leaderboard">Leaderboards</Link>
-              <Link href="/pricing">Pricing</Link>
+              <Link href={user ? "/sprint" : "/register"}>Start Writing</Link>
             </div>
 
             <div className={styles.footerCol}>

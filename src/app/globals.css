@@ -469,11 +469,6 @@ textarea.input {
   line-height: 1;
 }
 
-.badge-pro {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--text-primary);
-}
 
 .badge-og {
   background: linear-gradient(135deg, #A18CD1, #FBC2EB);
@@ -540,7 +535,7 @@ textarea.input {
   font-size: 1.6rem;
 }
 
-/* Pro user colored usernames with a premium sweeping sheen */
+/* Custom username colors available to every writer */
 .username-color-sage {
   --u-color: var(--success);
   --u-shine: #A1C6A1;
@@ -561,7 +556,7 @@ textarea.input {
   --u-shine: #8A4633;
 }
 
-.username-pro {
+.username-custom {
   font-weight: 700;
   color: transparent;
   background-color: var(--u-color);

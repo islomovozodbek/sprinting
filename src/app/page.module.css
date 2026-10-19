@@ -292,8 +292,9 @@
   animation: blinkCursor 1s step-end infinite;
 }
 
-/* ── Pricing Teaser ── */
-.pricingTeaser {
+/* ── Free writing invitation ── */
+.freeSection {
+  text-align: center;
   padding: 80px 0 120px;
   background-color: var(--bg-secondary);
 }
@@ -380,4 +381,10 @@
     gap: var(--space-md);
     text-align: center;
   }
+}
+
+.freeSection p {
+  max-width: 580px;
+  margin: var(--space-lg) auto var(--space-xl);
+  color: var(--text-secondary);
 }

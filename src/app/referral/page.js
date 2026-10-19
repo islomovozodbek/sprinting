@@ -24,7 +24,7 @@ export default function ReferralPage() {
     );
   }
 
-  const referralLink = `https://sprinting.ink/register?ref=${user.referralCode || "ABC123"}`;
+  const referralLink = `https://sprinting.ink/register?ref=${encodeURIComponent(user.referralCode || "")}`;
 
   const copyLink = () => {
     navigator.clipboard.writeText(referralLink);
@@ -32,26 +32,20 @@ export default function ReferralPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const rewards = [
-    { count: "1st friend", reward: "2 weeks free Pro" },
-    { count: "2nd friend", reward: "3 weeks free Pro" },
-    { count: "3rd friend", reward: "4 weeks free Pro" },
-  ];
-
   return (
     <div style={{ padding: "var(--space-2xl) 0", minHeight: "calc(100vh - var(--nav-height))", position: "relative", overflow: "hidden" }}>
       <PageShapes page="referral" />
       <div className="container" style={{ maxWidth: "600px", position: "relative", zIndex: 1 }}>
         <div className="text-center" style={{ marginBottom: "var(--space-2xl)" }}>
-          <h1 style={{ marginBottom: "var(--space-sm)" }}>Refer a Friend</h1>
+          <h1 style={{ marginBottom: "var(--space-sm)" }}>Invite a Friend</h1>
           <p className="text-muted">
-            Share Sprinting Ink with friends and both of you get free Pro time
+            Share Sprinting Ink with friends and build a writing habit together.
           </p>
         </div>
 
         {/* Your referral link */}
         <div className="card" style={{ marginBottom: "var(--space-xl)", textAlign: "center" }}>
-          <h3 style={{ marginBottom: "var(--space-md)" }}>Your Referral Link</h3>
+          <h3 style={{ marginBottom: "var(--space-md)" }}>Your Invite Link</h3>
           <div style={{
             display: "flex",
             gap: "var(--space-sm)",
@@ -72,24 +66,8 @@ export default function ReferralPage() {
             </button>
           </div>
           <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "var(--space-md)" }}>
-            Friends referred so far: <strong>{user.referralCount || 0}</strong> / 3
+            Friends referred so far: <strong>{user.referralCount || 0}</strong>
           </p>
-        </div>
-
-        {/* Rewards */}
-        <h3 style={{ marginBottom: "var(--space-md)" }}>Referral Rewards</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)", marginBottom: "var(--space-xl)" }}>
-          {rewards.map((r, i) => (
-            <div key={i} className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <strong>{r.count}</strong>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>signs up using your link</p>
-              </div>
-              <span className="badge badge-pro" style={{ fontSize: "0.8rem", padding: "6px 12px" }}>
-                {r.reward}
-              </span>
-            </div>
-          ))}
         </div>
 
         {/* How it works */}
@@ -100,13 +78,10 @@ export default function ReferralPage() {
               Share your unique referral link with friends
             </li>
             <li style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-              When they sign up using your link, you both get rewarded
+              Your friends can create a free account and start writing right away.
             </li>
             <li style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-              Rewards are escalating — the more friends, the longer the free Pro
-            </li>
-            <li style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-              Maximum 3 referrals (9 weeks of free Pro total!)
+              Try a daily prompt together and read each other&apos;s stories.
             </li>
           </ol>
         </div>

@@ -101,9 +101,6 @@ export default function Navbar() {
                   <Link href="/leaderboard" className={styles.navLink}>Leaderboards</Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className={styles.navLink}>Pricing</Link>
-                </li>
-                <li>
                   <Link href="/about" className={styles.navLink}>About</Link>
                 </li>
               </>
@@ -221,7 +218,6 @@ export default function Navbar() {
           <>
             <Link href="/feed" className={styles.navLink} onClick={closeMobile}>Feed</Link>
             <Link href="/leaderboard" className={styles.navLink} onClick={closeMobile}>Leaderboards</Link>
-            <Link href="/pricing" className={styles.navLink} onClick={closeMobile}>Pricing</Link>
             <Link href="/about" className={styles.navLink} onClick={closeMobile}>About</Link>
             <div className={styles.navActions}>
               <Link href="/login" className="btn btn-secondary" onClick={closeMobile}>Log in</Link>

@@ -93,7 +93,7 @@
   cursor: not-allowed;
 }
 
-.proSetupSection {
+.customSetupSection {
   margin-top: var(--space-xl);
   padding-top: var(--space-xl);
   border-top: 1px dashed var(--border);
@@ -103,23 +103,13 @@
   text-align: left;
 }
 
-.proHeader {
+.customHeader {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
   margin-bottom: var(--space-xs);
 }
 
-.proBadge {
-  background: linear-gradient(135deg, var(--accent), #ff8a65);
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
 
 .customInputGroup {
   display: flex;

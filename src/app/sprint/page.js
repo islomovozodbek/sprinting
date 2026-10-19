@@ -16,11 +16,11 @@ import { computeEarnedAchievements, getNewlyUnlocked, getAchievementById } from 
 import { useAchievementToasts } from "@/components/AchievementToast";
 
 const TIME_MODES = [
-  { value: 1, label: "1 min", proOnly: true },
-  { value: 2, label: "2 min", proOnly: true },
-  { value: 3, label: "3 min", proOnly: false },
-  { value: 5, label: "5 min", proOnly: true },
-  { value: 30, label: "30 min", proOnly: true },
+  { value: 1, label: "1 min" },
+  { value: 2, label: "2 min" },
+  { value: 3, label: "3 min" },
+  { value: 5, label: "5 min" },
+  { value: 30, label: "30 min" },
 ];
 
 const VANISH_WARNING_MS = 2000;   // At 2s, 3-2-1 countdown begins
@@ -91,7 +91,7 @@ function SprintPageInner() {
 
   const [phase, setPhase] = useState("setup");
   const [timeMode, setTimeMode] = useState(3);
-  const [userTime, setUserTime] = useState(""); // Custom minutes for Pro
+  const [userTime, setUserTime] = useState(""); // Custom duration in minutes
 
   const [prompt, setPrompt] = useState(isDailyMode && dailyPromptData ? dailyPromptData : null);
   const [isCustomPrompt, setIsCustomPrompt] = useState(false);
@@ -102,7 +102,6 @@ function SprintPageInner() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [inactivityMs, setInactivityMs] = useState(0);
-  const [rerolls, setRerolls] = useState(isDailyMode ? 0 : 3);
   const [title, setTitle] = useState("");
   const [showTitleError, setShowTitleError] = useState(false);
 
@@ -162,11 +161,7 @@ function SprintPageInner() {
   }, []);
 
   const handleReroll = () => {
-    if (user?.tier !== "pro" && rerolls <= 0) return;
     setPrompt(getRandomPrompt());
-    if (user?.tier !== "pro") {
-      setRerolls((r) => r - 1);
-    }
   };
 
   const lastKeypressRef = useRef(Date.now());
@@ -273,7 +268,6 @@ function SprintPageInner() {
             daily_prompt_id: promptRow.id,
             author_id: user.uid,
             author_username: user.username,
-            is_pro_user: user.tier === "pro",
             title: title.trim(),
             content: text.trim(),
             word_count: wordCount,
@@ -351,7 +345,6 @@ function SprintPageInner() {
         const { error: storyError } = await supabase.from("stories").insert({
           author_id: user.uid,
           author_username: user.username,
-          is_pro_user: user.tier === "pro",
           title: title.trim(),
           content: text.trim(),
           starter_sentence: prompt?.text || "",
@@ -609,18 +602,18 @@ function SprintPageInner() {
     if (isDailyMode && dailyPromptData) {
       // Daily mode: use the locked daily prompt
       selectedPrompt = dailyPromptData;
-    } else if (user?.tier === "pro" && isCustomPrompt && userPrompt.trim()) {
+    } else if (isCustomPrompt && userPrompt.trim()) {
       selectedPrompt = { id: "custom", text: userPrompt.trim(), category: "custom" };
     } else {
       selectedPrompt = getRandomPrompt();
     }
 
     // Daily mode: always 3 min
-    let finalTime = isDailyMode ? 3 * 60 : timeMode * 60;
-    if (!isDailyMode && user?.tier === "pro" && userTime) {
+    let finalTime = isDailyMode ? 3 * 60 : (timeMode || 3) * 60;
+    if (!isDailyMode && userTime) {
       const parsed = parseInt(userTime);
       if (!isNaN(parsed) && parsed > 0) {
-        finalTime = parsed * 60;
+        finalTime = Math.min(parsed, 1440) * 60;
       }
     }
 
@@ -678,7 +671,6 @@ function SprintPageInner() {
             daily_prompt_id: promptRow.id,
             author_id: user.uid,
             author_username: user.username,
-            is_pro_user: user.tier === "pro",
             submitted: false,
             title: "Pending...",
             content: "Pending...",
@@ -740,7 +732,6 @@ function SprintPageInner() {
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
 
   if (phase === "setup") {
-    const hasHitLimit = !isDailyMode && user?.tier !== "pro" && (user?.sprintsToday || 0) >= 100;
 
     return (
       <div className={styles.sprintPage}>
@@ -816,70 +807,64 @@ function SprintPageInner() {
                 <p>Select your time. Do not stop typing.</p>
 
                 <div className={styles.timeSelector}>
-                  {TIME_MODES.map((mode) => {
-                    const locked = mode.proOnly && user.tier !== "pro";
-                    return (
-                      <button
-                        key={mode.value}
-                        className={`${styles.timeBtn} ${timeMode === mode.value ? styles.active : ""} ${locked ? styles.locked : ""}`}
-                        onClick={() => !locked && setTimeMode(mode.value)}
-                        disabled={locked}
-                      >
-                        {mode.label} {locked && "🔒"}
-                      </button>
-                    );
-                  })}
+                  {TIME_MODES.map((mode) => (
+                    <button
+                      key={mode.value}
+                      className={`${styles.timeBtn} ${timeMode === mode.value ? styles.active : ""}`}
+                      onClick={() => { setTimeMode(mode.value); setUserTime(""); }}
+                    >
+                      {mode.label}
+                    </button>
+                  ))}
                 </div>
 
-                {user?.tier === "pro" && (
-                  <div className={styles.proSetupSection}>
-                    <div className={styles.customInputGroup}>
-                      <div className={styles.proHeader}>
-                        <span className={styles.proBadge}>Pro Feature</span>
-                        <label>Custom Duration</label>
-                      </div>
-                      <div className={styles.customTimeInput}>
-                        <input
-                          type="number"
-                          min="1"
-                          max="1440"
-                          placeholder="Min"
-                          value={userTime}
-                          onChange={(e) => {
-                            setUserTime(e.target.value);
-                            setTimeMode(0);
-                          }}
-                        />
-                        <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>minutes</span>
-                      </div>
+                <div className={styles.customSetupSection}>
+                  <div className={styles.customInputGroup}>
+                    <div className={styles.customHeader}>
+                      <label htmlFor="custom-duration">Custom Duration</label>
                     </div>
-
-                    <div className={styles.customInputGroup}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                        <div className={styles.proHeader}>
-                          <span className={styles.proBadge}>Pro Feature</span>
-                          <label>Custom Prompt</label>
-                        </div>
-                        <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "0.85rem" }}>
-                          <input
-                            type="checkbox"
-                            checked={isCustomPrompt}
-                            onChange={(e) => setIsCustomPrompt(e.target.checked)}
-                          />
-                          Enable
-                        </label>
-                      </div>
-                      {isCustomPrompt && (
-                        <textarea
-                          className={styles.customPromptInput}
-                          placeholder="Type your own starter sentence..."
-                          value={userPrompt}
-                          onChange={(e) => setUserPrompt(e.target.value)}
-                        />
-                      )}
+                    <div className={styles.customTimeInput}>
+                      <input
+                        id="custom-duration"
+                        type="number"
+                        min="1"
+                        max="1440"
+                        placeholder="Min"
+                        value={userTime}
+                        onChange={(e) => {
+                          setUserTime(e.target.value);
+                          setTimeMode(0);
+                        }}
+                      />
+                      <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>minutes</span>
                     </div>
                   </div>
-                )}
+
+                  <div className={styles.customInputGroup}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                      <div className={styles.customHeader}>
+                        <label htmlFor="custom-prompt">Custom Prompt</label>
+                      </div>
+                      <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "0.85rem" }}>
+                        <input
+                          type="checkbox"
+                          checked={isCustomPrompt}
+                          onChange={(e) => setIsCustomPrompt(e.target.checked)}
+                        />
+                        Enable
+                      </label>
+                    </div>
+                    {isCustomPrompt && (
+                      <textarea
+                        id="custom-prompt"
+                        className={styles.customPromptInput}
+                        placeholder="Type your own starter sentence..."
+                        value={userPrompt}
+                        onChange={(e) => setUserPrompt(e.target.value)}
+                      />
+                    )}
+                  </div>
+                </div>
 
                 <div style={{ marginTop: "24px", padding: "16px", backgroundColor: "var(--bg-elevated)", borderRadius: "8px", border: "1px solid var(--border)", textAlign: "left" }}>
                   <label style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontWeight: "600", fontSize: "1.05rem" }}>
@@ -907,22 +892,9 @@ function SprintPageInner() {
                   </div>
                 )}
 
-                {hasHitLimit ? (
-                  <div style={{ marginTop: "var(--space-xl)", padding: "24px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border)", textAlign: "center" }}>
-                    <span style={{ fontSize: "1.8rem", display: "block", marginBottom: "12px" }}>🛑</span>
-                    <strong style={{ fontSize: "1.1rem", color: "var(--text-primary)", display: "block", marginBottom: "8px" }}>Daily Limit Reached</strong>
-                    <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", margin: "0 auto 16px auto", maxWidth: "280px", lineHeight: 1.5 }}>
-                      You have run out of free sprints for today. Upgrade to Pro for infinite writing.
-                    </p>
-                    <Link href="/pricing" className="btn btn-primary" style={{ padding: "12px 24px", textDecoration: "none", display: "inline-block" }}>
-                      ✨ Upgrade to Pro
-                    </Link>
-                  </div>
-                ) : (
-                  <button className="btn btn-primary" onClick={startSprint} style={{ padding: "16px 40px", fontSize: "1.1rem", marginTop: "var(--space-xl)" }}>
-                    Start Writing
-                  </button>
-                )}
+                <button className="btn btn-primary" onClick={startSprint} style={{ padding: "16px 40px", fontSize: "1.1rem", marginTop: "var(--space-xl)" }}>
+                  Start Writing
+                </button>
               </>
             )}
           </div>
@@ -954,10 +926,10 @@ function SprintPageInner() {
                 <button
                   className={styles.rerollBtn}
                   onClick={handleReroll}
-                  disabled={user?.tier !== "pro" && rerolls <= 0}
-                  title={user?.tier === "pro" ? "Infinite Rerolls (Pro)" : `${rerolls} rerolls remaining`}
+                  title="Get another prompt"
+                  aria-label="Get another prompt"
                 >
-                  ↻ {user?.tier !== "pro" && <span>{rerolls}</span>}
+                  ↻
                 </button>
               )}
             </div>

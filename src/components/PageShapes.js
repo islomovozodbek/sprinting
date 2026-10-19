@@ -332,7 +332,6 @@ function TripleStroke({ rng, posStyle, tier }) {
 const PAGE_DESIGNS = {
   home:        { dominant: "enso",         subtle: null },
   about:       { dominant: "bigArc",       subtle: "dotPair" },
-  pricing:     { dominant: "enso",         subtle: "dotPair" },
   login:       { dominant: "horizon",      subtle: "dotPair" },
   register:    { dominant: "bigArc",       subtle: "dotPair" },
   feed:        { dominant: "bigArc",       subtle: "dotPair" },
@@ -418,8 +417,6 @@ export default function PageShapes({ page = "home" }) {
   let dominantPos = DOMINANT_ANCHORS[domIdx]();
   let subtlePos   = SUBTLE_ANCHORS[subIdx]();
 
-  // Pricing page override for dot pair position
-  if (page === "pricing") subtlePos = { bottom: "12%", right: "8%" };
 
   // About page override to move all shapes up
   if (page === "about") {

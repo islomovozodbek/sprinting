@@ -103,7 +103,7 @@ export default function SettingsPage() {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <span className="input-hint">
-                Can be changed {user.tier === "pro" ? "every week" : "every 3 weeks"}
+                Choose the username other writers will see.
               </span>
             </div>
 
@@ -131,14 +131,11 @@ export default function SettingsPage() {
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <strong>Plan</strong>
+                <strong>Access</strong>
                 <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
-                  {user.tier === "pro" ? "Pro" : "Free"}
+                  Free — all features included
                 </p>
               </div>
-              {user.tier !== "pro" && (
-                <a href="/pricing" className="btn btn-primary btn-sm">Upgrade</a>
-              )}
             </div>
           </div>
 

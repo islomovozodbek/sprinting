@@ -132,7 +132,7 @@ function StoryCard({ story: initialStory, user, onClick, onNeedLogin }) {
     <ScrollReveal animation="fadeUp">
       <div className={styles.storyCard} onClick={() => onClick(story)}>
         <div className={styles.storyMeta}>
-          <span className={`${styles.storyAuthor} ${story.is_pro_user ? "username-pro username-color-derby" : ""}`}>
+          <span className={styles.storyAuthor}>
             @{story.author_username}
           </span>
 
@@ -224,7 +224,7 @@ export default function FeedPage() {
         let query = supabase
           .from("stories")
           .select(
-            "id, title, content, starter_sentence, author_username, created_at, net_score, upvoters, downvoters, is_pro_user"
+            "id, title, content, starter_sentence, author_username, created_at, net_score, upvoters, downvoters"
           )
           .eq("is_hidden", false);
 
