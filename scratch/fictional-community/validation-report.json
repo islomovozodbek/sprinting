@@ -1,0 +1,87 @@
+{
+  "validation": "passed",
+  "summary": {
+    "profiles": 120,
+    "writers_with_saved_text": 96,
+    "never_wrote": 24,
+    "saved_sprints": 360,
+    "sessions": 372,
+    "events": 864,
+    "simulated_active_writers_last_30_days": 60,
+    "word_count": {
+      "total": 35647,
+      "mean": 99.0,
+      "median": 94.5,
+      "min": 29,
+      "max": 240
+    },
+    "cohorts": {
+      "never_wrote": 24,
+      "tried_and_left": 18,
+      "early_burst": 18,
+      "occasional": 42,
+      "regular": 15,
+      "frequent": 3
+    },
+    "timers": {
+      "1": 47,
+      "2": 49,
+      "3": 261,
+      "5": 3
+    },
+    "word_count_by_timer": {
+      "1": {
+        "min": 29,
+        "median": 41,
+        "mean": 40.8,
+        "max": 48
+      },
+      "2": {
+        "min": 54,
+        "median": 81,
+        "mean": 80.1,
+        "max": 101
+      },
+      "3": {
+        "min": 41,
+        "median": 120,
+        "mean": 111.6,
+        "max": 206
+      },
+      "5": {
+        "min": 219,
+        "median": 229,
+        "mean": 229.3,
+        "max": 240
+      }
+    },
+    "paragraph_counts": {
+      "1": 335,
+      "2": 23,
+      "4": 1,
+      "7": 1
+    },
+    "single_block_sprints": 329,
+    "outcomes": {
+      "saved": 360,
+      "abandoned": 6,
+      "erased_then_left": 6
+    }
+  },
+  "deployment_status": "local_review_only",
+  "checks": [
+    "120 unique profiles",
+    "360 unique prose bodies",
+    "96 writing profiles and 24 non-writers",
+    "case-insensitive unique handles matching signup format",
+    "60 simulated active writers in the last 30 days",
+    "cohort allocations",
+    "all author/session/story links",
+    "no future dates or overlapping sessions",
+    "registration precedes activity",
+    "timer and save chronology",
+    "word counts and totals",
+    "synthetic markers and real-metric exclusion on every record"
+  ],
+  "rebuild": "python3 scratch/fictional-community/build.py"
+}

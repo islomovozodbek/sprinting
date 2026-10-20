@@ -1,0 +1,78 @@
+{
+  "status": "draft_for_review",
+  "provenance": "AI-written fiction for a clearly identified starter collection. These are not submissions from real users or measured timed sessions.",
+  "stories": [
+    {
+      "id": "starter-preview-01",
+      "voice": "Plainspoken family realism; short paragraphs",
+      "title": "the good scissors",
+      "prompt": "Make the mundane feel like it's the last time.",
+      "suggested_sprint_minutes": 3,
+      "content": "Mum is cutting the label out of my shirt. I'm thirty one and apparently still can't be trusted with the good scissors.\n\nHold still, she says, although the shirt is on the table. Neither of us mentions that.\n\nThere are three boxes by the door. Kitchen, Bedroom, Other. Her handwriting gets smaller on each one. I have left the kettle out because the removal men might want tea, which is what I say when she asks.\n\nShe catches a thread with the point of the scissors and pulls it free.\n\nThere. Won't scratch now.\n\nI put the shirt back on. It doesn't scratch. I wish there was some other little job I could give her.",
+      "word_count": 115
+    },
+    {
+      "id": "starter-preview-02",
+      "voice": "Casual observational comedy; conversational punctuation",
+      "title": "feedback",
+      "prompt": "The spaceship's AI started telling jokes.",
+      "suggested_sprint_minutes": 3,
+      "content": "the first joke was about airlocks which none of us appreciated.\n\nWe put that in the feedback form. There's a form for everything on this ship except the leaking sink.\n\nSecond joke was the same one but it said window instead of airlock. Marcus laughed because Marcus wants the computer to like him. He says this is sensible given the oxygen situation.\n\nAnyway the computer has started doing callbacks now. Yesterday I asked how far we were from home and it said depends who's asking, the window inspector?\n\nThat's not even a joke.\n\nMarcus laughed for so long I went to eat in the room with the leaking sink.",
+      "word_count": 109
+    },
+    {
+      "id": "starter-preview-03",
+      "voice": "Concrete sensory description; reflective but unfinished",
+      "title": "not the sea",
+      "prompt": "Describe the color blue to someone who has never seen.",
+      "suggested_sprint_minutes": 3,
+      "content": "I started with cold and she said so is white, according to the last person.\n\nFair point.\n\nI tried the sound of a swimming pool before anyone gets in. The little slap of water against the edge, the room being much bigger than your voice. She nodded at that but I couldn't tell whether she was being polite.\n\nOutside a bus was reversing. Someone dropped something metal and swore.\n\nBlue isn't quiet exactly. That's where I went wrong. It can be a plastic bucket kicked down concrete steps. The bucket at my grandparents' house was blue. I remember that better than I remember their faces and I don't know what to do with that part.",
+      "word_count": 115
+    },
+    {
+      "id": "starter-preview-04",
+      "voice": "Dialogue-led realism; restrained detail",
+      "title": "Platform 4",
+      "prompt": "Write from inside a misunderstanding that both people are too proud to correct.",
+      "suggested_sprint_minutes": 2,
+      "content": "'You didn't have to come.'\n\n'I know.'\n\nHe took the suitcase anyway. One wheel had stopped turning and it made a sound like a small dog being dragged.\n\n'I've booked a taxi at the other end.'\n\n'Good.'\n\nShe wanted him to ask what time she'd be back. He was trying very hard not to ask. They passed a woman arguing with a ticket machine.\n\nAt the barrier he handed over the case.\n\n'The wheel's broken.'\n\n'Yes, Dad. I know.'\n\nHe stood there holding his hand in the shape of the handle.",
+      "word_count": 91
+    },
+    {
+      "id": "starter-preview-05",
+      "voice": "Everyday unease; one sustained scene",
+      "title": "upstairs",
+      "prompt": "Every night, someone left a single flower on her doorstep. She lived alone on a remote island.",
+      "suggested_sprint_minutes": 3,
+      "content": "It wasn't the flowers that bothered her. Things washed up. People came over in boats even when they weren't meant to.\n\nIt was that the stems were wet. Freshly cut, set down at six, still wet when she opened the door at seven.\n\nOn Thursday she stayed by the window with the radio turned low. Nothing came up the path. She could see all the way to the gate, the gate all the way to the jetty.\n\nAt six she heard the floorboard above her chair.\n\nJust once.\n\nShe looked up before she could stop herself. Then she went very carefully to the kitchen and picked up her phone. No signal, obviously. She checked anyway.",
+      "word_count": 115
+    },
+    {
+      "id": "starter-preview-06",
+      "voice": "Messy argumentative monologue; concrete petty stakes",
+      "title": "in my defence",
+      "prompt": "You are the villain. You are also completely right.",
+      "suggested_sprint_minutes": 2,
+      "content": "I took the microwave home.\n\nBefore you say anything it was MY microwave. I brought it in when the office one broke and everyone said thanks and then apparently six months passed and it became infrastructure.\n\nSomeone had put a laminated sign on it. Please cover your food. They laminated a sign for my microwave but nobody cleaned the soup off the ceiling of it.\n\nNow there's an email thread called Kitchen Situation and I'm not on it.\n\nI've seen it though. Helen forwarded it. Helen understands ownership.\n\nShe does want me to bring the glass plate back. I said the plate is part of the microwave. We're still discussing that.",
+      "word_count": 111
+    },
+    {
+      "id": "starter-preview-07",
+      "voice": "Close physical observation; no resolved ending",
+      "title": "a little higher",
+      "prompt": "Write joy that is aware of how temporary it is.",
+      "suggested_sprint_minutes": 3,
+      "content": "Her shoes kept coming off on the swing. We'd put them on the wrong feet at first and then corrected it, which she thought was very funny. Now she was deliberately loosening the straps with her toes.\n\nI stood where I could catch them.\n\nOne more push, she said, then one more, then the one after that. The light was going out of the grass. I could see her mother waiting by the car with the engine running.\n\nWe only do Saturdays at the moment.\n\nA shoe landed beside me. I picked it up and held it against my coat. There was sand inside from somewhere we'd been earlier.\n\nHigher, she said.\n\nI put the shoe in my pocket so I had both hands.",
+      "word_count": 124
+    },
+    {
+      "id": "starter-preview-08",
+      "voice": "Practical list that drifts into a personal scene",
+      "title": "instructions left on the fridge",
+      "prompt": "Write the instruction manual for something that cannot be taught.",
+      "suggested_sprint_minutes": 3,
+      "content": "1. The front door sticks. Lift before you turn the key.\n2. Bin day is Wednesday except when it isn't. Ask the man at number twelve, he knows.\n3. If you burn something don't open the kitchen window because it sets off next door's alarm. I can't explain this.\n4. You will want to call me about the boiler. The instructions are underneath it.\n5. You can call me about the boiler.\n\nHe read the list twice standing in his socks. Then he crossed out the fourth one, because it sounded annoyed and he wasn't annoyed.\n\nHe was due to hand over the keys at ten. His daughter would be here at half nine with the van and the plants she'd already bought for the windowsill.\n\nHe added: water the basil less than you think.",
+      "word_count": 135
+    }
+  ]
+}

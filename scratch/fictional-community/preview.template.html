@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>Sprinting Ink · Collection preview</title>
+  <style>
+    :root{color-scheme:light;--paper:#f7f4ee;--card:#fffdf9;--ink:#302b25;--muted:#746c61;--line:#ded5c6;--accent:#685447;--soft:#eee7dc}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,sans-serif}main{max-width:1180px;margin:auto;padding:42px 26px 70px}h1{font:clamp(30px,5vw,48px)/1.12 Georgia,serif;margin:10px 0 16px;letter-spacing:-1px}h2{font:25px/1.25 Georgia,serif;margin:12px 0}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:750}.intro{max-width:780px;color:var(--muted);margin:0 0 24px}.notice{padding:14px 18px;border:1px solid #d2c2a3;border-radius:12px;background:#f0e8d6;margin:20px 0}.notice strong{display:block}.notice p{margin:4px 0 0;font-size:13px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.stat{border:1px solid var(--line);border-radius:12px;padding:17px;background:var(--card)}.stat b{display:block;font:34px/1.2 Georgia,serif}.stat span{font-size:12px;color:var(--muted)}.tabs{display:flex;gap:8px;margin:24px 0 16px;border-bottom:1px solid var(--line);padding-bottom:12px}button,input,select{font:inherit}button,select{cursor:pointer}button{border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);padding:9px 15px}button:hover{border-color:var(--accent)}button[aria-selected="true"]{background:var(--accent);color:white;border-color:var(--accent)}:focus-visible{outline:3px solid #407580;outline-offset:3px}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}input,select{width:100%;border:1px solid var(--line);border-radius:8px;color:var(--ink);background:var(--card);padding:10px 12px;font-size:14px;min-width:0}.subline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}.card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:24px;overflow-wrap:anywhere}.meta{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px;flex-wrap:wrap}.author{border:0;background:none;padding:0;text-decoration:underline;text-underline-offset:3px;font-weight:650;color:var(--accent);font-size:13px}.label{display:inline-block;font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--accent);border:1px solid var(--line);border-radius:5px;padding:2px 6px;margin:10px 0 0}.prompt{color:var(--muted);font:italic 16px/1.5 Georgia,serif;border-left:2px solid var(--line);padding-left:12px;margin:14px 0}.prose{font:18px/1.7 Georgia,serif;white-space:pre-wrap}.foot{border-top:1px solid var(--line);padding-top:12px;margin-top:18px;color:var(--muted);font-size:12px}details{margin-top:14px;color:var(--muted);font-size:13px}summary{cursor:pointer}details p{margin:8px 0}.person-head{display:flex;gap:13px;align-items:center}.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--avatar);color:white;font-weight:700;flex:none}.person-head h2{font:20px system-ui;margin:0}.bio{color:var(--muted);min-height:22px;font-style:italic}.mini{display:flex;gap:20px;margin:18px 0}.mini b{display:block;font-size:22px}.mini span{font-size:11px;color:var(--muted)}.person p{font-size:13px}.cohort{font-size:12px;font-weight:650}.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}th,td{padding:13px 18px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--soft);font-size:11px;text-transform:uppercase;letter-spacing:.5px}tr:last-child td{border-bottom:0}.empty{padding:40px;text-align:center;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}.more{display:block;margin:25px auto}.more[hidden]{display:none}.fineprint{font-size:12px;color:var(--muted);margin-top:34px;border-top:1px solid var(--line);padding-top:18px}.chart{display:flex;gap:5px;height:85px;align-items:end;margin-top:20px}.bar{flex:1;min-height:2px;background:#a89175;border-radius:3px 3px 0 0}.chart-caption{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}.overview{margin-top:20px}.view-heading{font-size:16px;margin-bottom:10px}.top-note{font-size:12px;color:var(--muted)}@media(max-width:740px){main{padding:24px 16px}.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.card{padding:20px}.tabs{flex-wrap:wrap}.subline{align-items:flex-start}.prose{font-size:17px}th,td{padding:10px}h1{letter-spacing:-.5px}}@media(prefers-reduced-motion:no-preference){button{transition:background .12s,border-color .12s}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Sprinting Ink / local collection preview</div>
+  <h1>A hundred and twenty<br>different starts.</h1>
+  <p class="intro">A place to read the drafts: quick starts, tangled ideas, a few finished thoughts. Browse the collection by writer, subject, or writing habit.</p>
+  <section class="stats" aria-label="Collection counts" id="stats"></section>
+  <details class="overview"><summary>Activity window and distribution</summary><p id="scope"></p><div id="cohorts"></div><div class="chart" id="chart" role="img"></div><div class="chart-caption"><span>5 Oct 2026</span><span>Saved sprints per UTC day · collection window</span><span>18 Oct 2026</span></div></details>
+  <div class="tabs" role="tablist" aria-label="Preview views"><button role="tab" id="tab-stories" aria-controls="results" aria-selected="true" data-view="stories">Sprint texts</button><button role="tab" id="tab-writers" aria-controls="results" aria-selected="false" data-view="writers" tabindex="-1">Writers</button><button role="tab" id="tab-activity" aria-controls="results" aria-selected="false" data-view="activity" tabindex="-1">Activity history</button></div>
+  <div class="filters">
+    <label>Search text, title, or writer<input id="search" type="search" placeholder="Try a name, subject, or phrase" autocomplete="off"></label>
+    <label>Writing habit<select id="cohort"><option value="">All habits</option></select></label>
+    <label>Writer<select id="writer"><option value="">All 120 writers</option></select></label>
+  </div>
+  <div class="subline"><span id="count" aria-live="polite"></span><button id="reset">Clear filters</button></div>
+  <section id="results" role="tabpanel" aria-labelledby="tab-stories"></section>
+  <button class="more" id="more" hidden>Show more</button>
+  <footer class="fineprint"><details><summary>Collection details</summary><p>This is a local editorial preview. All profiles are invented, prose is AI-written, and activity histories are simulated. No real accounts, daily submissions, votes, followers, or analytics have been created. Internal provenance and exclusions from real metrics remain in the JSON bundle.</p><p>Rebuild with <code>python3 scratch/fictional-community/build.py</code>. Edit individual drafts in the adjacent <code>*.prose.json</code> files.</p></details></footer>
+</main>
+<script id="community-data" type="application/json">__COMMUNITY_JSON__</script>
+<script>
+  'use strict';
+  const data = JSON.parse(document.getElementById('community-data').textContent);
+  const $ = id => document.getElementById(id);
+  const profiles = new Map(data.profiles.map(p => [p.id, p]));
+  const storyMap = new Map(data.stories.map(s => [s.id, s]));
+  const sessions = new Map(data.sessions.map(s => [s.id, s]));
+  const state = {view:'stories', limit:24};
+  function el(tag, text, className) {const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(className)n.className=className;return n;}
+  function date(value) {return value ? new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}).format(new Date(value))+' UTC' : 'No writing recorded';}
+  function authorButton(p) {const b=el('button','@'+p.username,'author');b.addEventListener('click',()=>{$('writer').value=p.id;$('cohort').value='';$('search').value='';setView('stories');});return b;}
+  function stat(value,label) {const n=el('div',undefined,'stat');n.append(el('b',value),el('span',label));return n;}
+  $('stats').append(stat(data.summary.profiles,'writers in this collection'),stat(data.summary.saved_sprints,'sprint texts'),stat(data.summary.simulated_active_writers_last_30_days,'with recent sprints · collection'),stat(data.summary.word_count.mean,'words per sprint · average'));
+  $('scope').textContent=data.metadata.history_note+' As of '+date(data.metadata.as_of)+'. Twelve additional attempts were abandoned or erased, retaining no text.';
+  const labels = new Map();
+  for (const p of data.profiles) labels.set(p.habits.cohort,p.habits.cohort_label);
+  for (const [key,n] of Object.entries(data.summary.cohorts)) {const option=el('option',labels.get(key)+' ('+n+')');option.value=key;$('cohort').append(option);$('cohorts').append(el('div',n+' — '+labels.get(key)));}
+  for (const p of [...data.profiles].sort((a,b)=>a.username.localeCompare(b.username))) {const n=p.sample_stats.saved_sprints,option=el('option','@'+p.username+' · '+n+(n===1?' text':' texts'));option.value=p.id;$('writer').append(option);}
+  const days=Array.from({length:14},(_,i)=>'2026-10-'+String(i+5).padStart(2,'0'));
+  const totals=days.map(d=>data.stories.filter(s=>s.created_at.startsWith(d)).length);
+  days.forEach((d,i)=>{const b=el('div',undefined,'bar');b.style.height=(totals[i]/Math.max(...totals)*100)+'%';b.title=d+': '+totals[i]+' sprints';$('chart').append(b);});
+  $('chart').setAttribute('aria-label',days.map((d,i)=>d+': '+totals[i]+' sprints').join('; '));
+  function matchingProfile(p) {return (!$('cohort').value||p.habits.cohort===$('cohort').value)&&(!$('writer').value||p.id===$('writer').value);}
+  function queryMatch(...parts) {const q=$('search').value.trim().toLowerCase();return !q||parts.join(' ').toLowerCase().includes(q);}
+  function storyCard(s) {
+    const p=profiles.get(s.author_id), card=el('article',undefined,'card');
+    const meta=el('div',undefined,'meta');meta.append(authorButton(p),el('span',date(s.created_at)));card.append(meta,el('h2',s.title),el('p',s.prompt.text,'prompt'),el('div',s.content,'prose'));
+    card.append(el('div',s.word_count+' words · '+s.time_mode+' min · '+(s.is_hardcore?'hardcore':'standard')+' · '+(s.mode==='custom'?'custom prompt':'regular prompt'),'foot'));
+    return card;
+  }
+  function writerCard(p) {
+    const card=el('article',undefined,'card person'),head=el('div',undefined,'person-head'),avatar=el('div',p.display_name.split(/\s+/).map(x=>x[0]).slice(0,2).join(''),'avatar');avatar.style.setProperty('--avatar',p.avatar.color);
+    const title=el('div');title.append(el('h2',p.display_name),authorButton(p));head.append(avatar,title);card.append(head);
+    if(p.bio)card.append(el('p',p.bio,'bio'));
+    const mini=el('div',undefined,'mini');for(const [value,label]of[[p.sample_stats.saved_sprints,'texts'],[p.sample_stats.attempts,'attempts'],[p.sample_stats.active_days,'writing days']]){const n=el('div');n.append(el('b',value),el('span',label));mini.append(n);}card.append(mini,el('p','Joined: '+date(p.created_at)),el('p','Latest writing: '+date(p.sample_stats.last_writing_activity_at)),el('div',p.sample_stats.saved_sprints?'Length range: '+p.sample_stats.min_words+'–'+p.sample_stats.max_words+' words · mean '+p.sample_stats.mean_words:'No sprint texts yet.','foot'));return card;
+  }
+  const eventLabels={registered:'Registered',sprint_started:'Started a sprint',sprint_saved:'Saved a sprint',sprint_abandoned:'Abandoned attempt',sprint_erased_then_left:'Text erased; left without saving'};
+  function render() {
+    let rows;
+    if(state.view==='stories')rows=data.stories.filter(s=>{const p=profiles.get(s.author_id);return matchingProfile(p)&&queryMatch(s.title,s.content,s.prompt.text,p.username,p.display_name);}).slice().reverse();
+    else if(state.view==='writers')rows=data.profiles.filter(p=>matchingProfile(p)&&queryMatch(p.username,p.display_name,p.bio,p.writing_style.description,...p.writing_style.recurring_interests));
+    else rows=data.activity.filter(e=>{const p=profiles.get(e.profile_id),s=storyMap.get(e.story_id);return matchingProfile(p)&&queryMatch(p.username,p.display_name,eventLabels[e.kind],s?.title||'');}).slice().reverse();
+    $('count').textContent=rows.length+' matching '+(state.view==='stories'?'sprint texts':state.view==='writers'?'writers':'events')+' · showing '+Math.min(rows.length,state.limit);
+    $('results').replaceChildren();$('more').hidden=rows.length<=state.limit;
+    if(!rows.length){$('results').append(el('div',state.view==='stories'?'No texts match. Non-writing profiles are available in the Writers view.':'No records match these filters.','empty'));return;}
+    if(state.view!=='activity'){const grid=el('div',undefined,'grid');for(const row of rows.slice(0,state.limit))grid.append(state.view==='stories'?storyCard(row):writerCard(row));$('results').append(grid);}
+    else {const wrap=el('div',undefined,'table-wrap'),table=el('table'),head=el('thead'),tr=el('tr');for(const label of ['Time · UTC','Writer','Event','Detail'])tr.append(el('th',label));head.append(tr);table.append(head);const body=el('tbody');for(const e of rows.slice(0,state.limit)){const tr=el('tr'),author=el('td'),session=sessions.get(e.session_id),story=storyMap.get(e.story_id);author.append(authorButton(profiles.get(e.profile_id)));tr.append(el('td',date(e.occurred_at)),author,el('td',eventLabels[e.kind]),el('td',story?story.title+' · '+story.word_count+' words':session?session.timer_minutes+' min selected · '+(session.is_hardcore?'hardcore':'standard'):'Joined'));body.append(tr);}table.append(body);wrap.append(table);$('results').append(wrap);}
+  }
+  function setView(view) {state.view=view;state.limit=view==='activity'?50:24;document.querySelectorAll('[data-view]').forEach(b=>{b.setAttribute('aria-selected',String(b.dataset.view===view));b.tabIndex=b.dataset.view===view?0:-1;});$('results').setAttribute('aria-labelledby','tab-'+view);render();}
+  const tabs=[...document.querySelectorAll('[data-view]')];
+  tabs.forEach((b,i)=>{b.addEventListener('click',()=>setView(b.dataset.view));b.addEventListener('keydown',e=>{let target;if(e.key==='ArrowRight')target=(i+1)%tabs.length;else if(e.key==='ArrowLeft')target=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')target=0;else if(e.key==='End')target=tabs.length-1;else return;e.preventDefault();setView(tabs[target].dataset.view);tabs[target].focus();});});
+  for(const id of ['search','cohort','writer'])$(id).addEventListener(id==='search'?'input':'change',()=>{state.limit=state.view==='activity'?50:24;render();});
+  $('reset').addEventListener('click',()=>{$('search').value='';$('cohort').value='';$('writer').value='';setView(state.view);});
+  $('more').addEventListener('click',()=>{state.limit+=state.view==='activity'?50:24;render();});
+  render();
+</script>
+</body>
+</html>
