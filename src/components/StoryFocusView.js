@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import styles from "../app/feed/feed.module.css";
 
 export default function StoryFocusView({ story, onClose }) {
-  const [displayText, setDisplayText] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackIndex, setPlaybackIndex] = useState(0);
+  const displayText = isPlaying ? story.content.slice(0, playbackIndex) : story.content;
 
   // Handle escape key to close
   useEffect(() => {
@@ -21,23 +22,19 @@ export default function StoryFocusView({ story, onClose }) {
   useEffect(() => {
     if (isPlaying && playbackIndex < story.content.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(story.content.substring(0, playbackIndex + 1));
         setPlaybackIndex(playbackIndex + 1);
+        if (playbackIndex + 1 >= story.content.length) setIsPlaying(false);
       }, 30 + Math.random() * 40); // Human-like speed
       return () => clearTimeout(timeout);
-    } else if (!isPlaying) {
-      setDisplayText(story.content);
     }
   }, [isPlaying, playbackIndex, story.content]);
 
   const togglePlayback = () => {
     if (!isPlaying) {
-      setDisplayText("");
       setPlaybackIndex(0);
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
-      setDisplayText(story.content);
     }
   };
 
@@ -48,21 +45,24 @@ export default function StoryFocusView({ story, onClose }) {
         
         <div className={styles.focusHeader}>
           <div className={styles.focusMeta}>
-            <span className={styles.focusAuthor}>@{story.authorUsername}</span>
+            <Link className={styles.focusAuthor} href={`/profile/${encodeURIComponent(story.author_username ?? story.authorUsername)}`}>
+              @{story.author_username ?? story.authorUsername}
+            </Link>
             <span className={styles.focusDot}>•</span>
-            <span className={styles.focusTime}>{story.wordCount} words</span>
+            <span className={styles.focusTime}>{story.word_count ?? story.wordCount} words</span>
 
           </div>
           <button 
             className={`${styles.playbackBtn} ${isPlaying ? styles.isPlaying : ""}`}
             onClick={togglePlayback}
           >
-            {isPlaying ? "⏹ Stop Playback" : "▶ Watch Writing Process"}
+            {isPlaying ? "⏹ Stop Animation" : "▶ Animate Text"}
           </button>
         </div>
 
         <div className={styles.focusContent}>
-          <div className={styles.focusPrompt}>&ldquo;{story.starterSentence}&rdquo;</div>
+          <h2>{story.title}</h2>
+          <div className={styles.focusPrompt}>&ldquo;{story.starter_sentence ?? story.starterSentence}&rdquo;</div>
           <div className={styles.focusBody}>
             {displayText}
             {isPlaying && <span className={styles.focusCursor} />}

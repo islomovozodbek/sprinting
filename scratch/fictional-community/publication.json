@@ -1,0 +1,20 @@
+{
+  "database_status": "imported",
+  "date": "2026-10-20",
+  "project_ref": "qugqybqvfhcoyotkuokb",
+  "profiles": 120,
+  "stories": 360,
+  "original_profiles": 13,
+  "original_stories": 7,
+  "tables": ["sample_profiles", "sample_stories"],
+  "read_views": ["community_profiles", "community_stories"],
+  "auth_accounts_created": 0,
+  "include_in_real_metrics": false,
+  "verification": {
+    "public_reads_and_source_content": "passed",
+    "anonymous_voting_blocked": "passed",
+    "authenticated_vote_transitions": "passed; test transaction rolled back",
+    "production_build": "passed"
+  },
+  "note": "Earlier validation and revision reports describe the local review stage. This record describes the subsequent database import. Simulated session/event histories remain local; they are not real usage analytics."
+}

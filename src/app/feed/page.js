@@ -47,6 +47,7 @@ function LoginPrompt({ onClose }) {
 function StoryCard({ story: initialStory, user, onClick, onNeedLogin }) {
   const [story, setStory] = useState(initialStory);
   const [voting, setVoting] = useState(false);
+  const [now] = useState(Date.now);
 
   // Sync if parent re-loads stories
   useEffect(() => { setStory(initialStory); }, [initialStory]);
@@ -96,9 +97,9 @@ function StoryCard({ story: initialStory, user, onClick, onNeedLogin }) {
     }));
 
     // Persist via RPC (SECURITY DEFINER bypasses author-only RLS)
-    const { data, error } = await supabase.rpc("vote_story", {
+    const { data, error } = await supabase.rpc(story.is_synthetic ? "vote_sample_story" : "vote_story", {
       p_story_id:  story.id,
-      p_user_id:   user.uid,
+      ...(!story.is_synthetic && { p_user_id: user.uid }),
       p_direction: rpcDirection,
     });
 
@@ -120,7 +121,7 @@ function StoryCard({ story: initialStory, user, onClick, onNeedLogin }) {
 
   const timeAgo = (dateStr) => {
     if (!dateStr) return "Just now";
-    const diff = Date.now() - new Date(dateStr).getTime();
+    const diff = Math.max(0, now - new Date(dateStr).getTime());
     const mins = Math.floor(diff / 60000);
     if (mins < 60) return `${mins}m ago`;
     const hours = Math.floor(mins / 60);
@@ -132,9 +133,9 @@ function StoryCard({ story: initialStory, user, onClick, onNeedLogin }) {
     <ScrollReveal animation="fadeUp">
       <div className={styles.storyCard} onClick={() => onClick(story)}>
         <div className={styles.storyMeta}>
-          <span className={styles.storyAuthor}>
+          <Link className={styles.storyAuthor} href={`/profile/${encodeURIComponent(story.author_username)}`} onClick={(e) => e.stopPropagation()}>
             @{story.author_username}
-          </span>
+          </Link>
 
           <span className={styles.storyTime}>{timeAgo(story.created_at)}</span>
         </div>
@@ -222,9 +223,9 @@ export default function FeedPage() {
         // full story content + huge upvoters/downvoters arrays on initial load.
         // We still need upvoters/downvoters for the vote UI.
         let query = supabase
-          .from("stories")
+          .from("community_stories")
           .select(
-            "id, title, content, starter_sentence, author_username, created_at, net_score, upvoters, downvoters"
+            "id, title, content, starter_sentence, author_username, created_at, word_count, time_mode, net_score, upvoters, downvoters, is_synthetic"
           )
           .eq("is_hidden", false);
 
@@ -233,6 +234,7 @@ export default function FeedPage() {
         } else {
           query = query.order("created_at", { ascending: false });
         }
+        query = query.order("id", { ascending: true });
 
         // Search only title + author_username — content ilike with a leading
         // wildcard forces a full table scan and is extremely slow.

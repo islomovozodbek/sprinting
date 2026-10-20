@@ -11,19 +11,20 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState(null);
   const debounceRef           = useRef(null);
+  const handleQueryChange = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+    setResults([]);
+    setError(null);
+    setLoading(value.trim().length >= 2);
+  };
 
   useEffect(() => {
     // Clear pending debounce on every keystroke
     clearTimeout(debounceRef.current);
 
-    if (query.length < 2) {
-      setResults([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
+    if (query.trim().length < 2) return;
+    let cancelled = false;
 
     // 300ms debounce — waits for the user to pause before querying
     debounceRef.current = setTimeout(async () => {
@@ -33,17 +34,18 @@ export default function SearchPage() {
       // so we run two queries and merge + deduplicate by id.
       const [byUsername, byDisplayName] = await Promise.all([
         supabase
-          .from("profiles")
+          .from("community_profiles")
           .select("id, username, display_name, photo_url, total_stories, level, profile_color, is_og")
           .ilike("username", term)
           .limit(15),
         supabase
-          .from("profiles")
+          .from("community_profiles")
           .select("id, username, display_name, photo_url, total_stories, level, profile_color, is_og")
           .ilike("display_name", term)
           .limit(15),
       ]);
 
+      if (cancelled) return;
       if (byUsername.error || byDisplayName.error) {
         setError("Something went wrong. Please try again.");
         setLoading(false);
@@ -62,7 +64,10 @@ export default function SearchPage() {
       setLoading(false);
     }, 300);
 
-    return () => clearTimeout(debounceRef.current);
+    return () => {
+      cancelled = true;
+      clearTimeout(debounceRef.current);
+    };
   }, [query]);
 
   return (
@@ -80,7 +85,7 @@ export default function SearchPage() {
             className="input w-full"
             placeholder="Search for writers..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleQueryChange}
             autoFocus
             style={{ fontSize: "1.1rem", padding: "14px 20px" }}
           />

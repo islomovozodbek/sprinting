@@ -32,6 +32,7 @@ export default function ProfilePage() {
   const [userStories, setUserStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const userId = user?.uid;
   const [isFollowing, setIsFollowing] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
 
@@ -41,7 +42,7 @@ export default function ProfilePage() {
       try {
         // 1. Fetch User Profile
         const { data: userData, error: userError } = await supabase
-          .from("profiles")
+          .from("community_profiles")
           .select("*")
           .eq("username", username)
           .maybeSingle();
@@ -52,7 +53,7 @@ export default function ProfilePage() {
         if (userData) {
           // 2. Fetch User Stories
           const { data: storyData, error: storyError } = await supabase
-            .from("stories")
+            .from("community_stories")
             .select("*")
             .eq("author_id", userData.id)
             .eq("is_hidden", false)
@@ -62,14 +63,16 @@ export default function ProfilePage() {
           setUserStories(storyData || []);
 
           // 3. Check follow status if logged in and not looking at own profile
-          if (user && user.uid !== userData.id) {
+          if (userId && userId !== userData.id && !userData.is_synthetic) {
             const { data: followData } = await supabase
               .from("follows")
               .select("*")
-              .eq("follower_id", user.uid)
+              .eq("follower_id", userId)
               .eq("following_id", userData.id)
               .maybeSingle();
-            if (followData) setIsFollowing(true);
+            setIsFollowing(Boolean(followData));
+          } else {
+            setIsFollowing(false);
           }
         }
       } catch (err) {
@@ -80,10 +83,10 @@ export default function ProfilePage() {
     };
 
     fetchProfileData();
-  }, [username, user?.uid]);
+  }, [username, userId]);
 
   const toggleFollow = async () => {
-    if (!user || !profileUser || followLoading) return;
+    if (!user || !profileUser || profileUser.is_synthetic || followLoading) return;
     setFollowLoading(true);
     try {
       if (isFollowing) {
@@ -168,15 +171,15 @@ export default function ProfilePage() {
               <span className={styles.profileStat}>
                 <strong>{profileUser.following_count || 0}</strong> following
               </span>
-              <span className={styles.profileStat}>
+              {!profileUser.is_synthetic && <span className={styles.profileStat}>
                 <strong>🔥 {profileUser.current_streak}</strong> day streak
-              </span>
-              <span className={styles.profileStat}>
+              </span>}
+              {!profileUser.is_synthetic && <span className={styles.profileStat}>
                 <strong>Lv {profileUser.level} ({getRankTitle(profileUser.level)})</strong> · {profileUser.aura} Aura
-              </span>
+              </span>}
             </div>
             <div className={styles.profileActions}>
-              {user && user.uid !== profileUser.id && (
+              {user && user.uid !== profileUser.id && !profileUser.is_synthetic && (
                 <button 
                   className={`btn ${isFollowing ? 'btn-secondary' : 'btn-primary'} btn-sm`}
                   onClick={toggleFollow}
@@ -197,12 +200,12 @@ export default function ProfilePage() {
           >
             Stories ({userStories.length})
           </button>
-          <button
+          {!profileUser.is_synthetic && <button
             className={`${styles.profileTab} ${activeTab === "achievements" ? styles.active : ""}`}
             onClick={() => setActiveTab("achievements")}
           >
             Achievements
-          </button>
+          </button>}
         </div>
 
         {/* Content */}
@@ -220,7 +223,8 @@ export default function ProfilePage() {
                       <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontStyle: "italic", marginBottom: "var(--space-sm)" }}>
                         {story.starter_sentence}
                       </div>
-                      <p style={{ fontFamily: "var(--font-writing)", lineHeight: 1.75 }}>
+                      <h2>{story.title}</h2>
+                      <p style={{ fontFamily: "var(--font-writing)", lineHeight: 1.75, whiteSpace: "pre-wrap" }}>
                         {story.content}
                       </p>
                       <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-md)", fontSize: "0.8rem", color: "var(--text-muted)" }}>
