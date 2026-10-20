@@ -28,21 +28,31 @@ def request(path, payload=None):
         return json.load(response)
 
 
-profiles = request("community_profiles?is_synthetic=eq.true&select=id,username,display_name,total_stories")
-stories = request("community_stories?is_synthetic=eq.true&select=id,author_id,author_username,content,word_count,is_hidden")
+def all_rows(path):
+    rows = []
+    while True:
+        page = request(f"{path}&order=id&limit=500&offset={len(rows)}")
+        rows.extend(page)
+        if len(page) < 500:
+            return rows
+
+
+profiles = all_rows("community_profiles?is_synthetic=eq.true&select=id,username,display_name,total_stories")
+stories = all_rows("community_stories?is_synthetic=eq.true&select=id,author_id,author_username,content,word_count,is_hidden")
 expected = json.loads((ROOT / "community.json").read_text())
-assert len(profiles) == 120 and len(stories) == 360
+assert len(profiles) == 120 and len(stories) >= 360
 profile_map = {p["id"]: p for p in profiles}
 expected_profiles = {p["id"].removeprefix("sample-writer-"): p for p in expected["profiles"]}
 expected_stories = {s["id"].removeprefix("sample-story-"): s for s in expected["stories"]}
 assert set(profile_map) == set(expected_profiles)
-assert {s["id"] for s in stories} == set(expected_stories)
+assert set(expected_stories) <= {s["id"] for s in stories}
 for p in profiles:
     assert p["username"] == expected_profiles[p["id"]]["username"]
     assert p["display_name"] == expected_profiles[p["id"]]["display_name"]
     assert p["total_stories"] == sum(s["author_id"] == p["id"] for s in stories)
 for s in stories:
-    assert s["content"] == expected_stories[s["id"]]["content"]
+    if s["id"] in expected_stories:
+        assert s["content"] == expected_stories[s["id"]]["content"]
     assert s["word_count"] == len(s["content"].split())
     assert s["author_username"] == profile_map[s["author_id"]]["username"]
     assert s["is_hidden"] is False

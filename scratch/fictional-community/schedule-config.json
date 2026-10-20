@@ -1,0 +1,10 @@
+{
+  "starts_at": "2026-10-20T12:06:35.970749+00:00",
+  "enabled": true,
+  "cohorts": [
+    "regular",
+    "frequent"
+  ],
+  "max_posts_per_run": 5,
+  "cadence": "2\u20133 posts per week per selected writer; six-hour checks; no catch-up beyond 12 hours"
+}

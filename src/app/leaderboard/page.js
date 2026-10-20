@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import styles from "./leaderboard.module.css";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -16,28 +17,45 @@ export default function LeaderboardPage() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [scope, setScope] = useState("writers");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
     const fetchLeaderboard = async () => {
       setLoading(true);
+      setError(null);
       try {
         const { data, error } = await supabase
-          .from("profiles")
-          .select("*")
+          .from(scope === "collection" ? "collection_rankings" : "profiles")
+          .select(scope === "collection"
+            ? "id,username,profile_color,total_stories,total_upvotes_received"
+            : "id,username,profile_color,total_stories,total_upvotes_received,current_streak")
           .order(activeCategory.sortKey, { ascending: false })
+          .order("username", { ascending: true })
           .limit(20);
 
         if (error) throw error;
+        if (cancelled) return;
         setUsers(data || []);
       } catch (err) {
+        if (cancelled) return;
+        setUsers([]);
+        setError("Could not load the rankings. Please try again.");
         console.error("Error fetching leaderboard:", err);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     fetchLeaderboard();
-  }, [activeCategory]);
+    const refresh = () => fetchLeaderboard();
+    window.addEventListener("focus", refresh);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("focus", refresh);
+    };
+  }, [activeCategory, scope]);
 
   return (
     <div className={styles.leaderPage}>
@@ -52,22 +70,37 @@ export default function LeaderboardPage() {
         </header>
 
         {/* Tab Selection */}
+        <div className={styles.tabs}>
+          {[["writers", "Community writers"], ["collection", "Story collection"]].map(([id, label]) => (
+            <button key={id} className={`${styles.tab} ${scope === id ? styles.active : ""}`}
+              aria-pressed={scope === id}
+              onClick={() => {
+                setScope(id);
+                setActiveCategory(id === "collection" ? CATEGORIES[1] : CATEGORIES[0]);
+              }}>
+              {label}
+            </button>
+          ))}
+        </div>
+        {scope === "collection" && <p style={{ textAlign: "center", marginBottom: 24 }}>
+          Editorial profiles ranked by published stories and reader upvotes.
+        </p>}
         <ScrollReveal animation="fadeUp" delay={100}>
           <div className={styles.tabs}>
-            {CATEGORIES.map(cat => (
+            {CATEGORIES.filter(cat => scope !== "collection" || cat.id !== "consistency").map(cat => (
               <button 
                 key={cat.id} 
                 className={`${styles.tab} ${activeCategory.id === cat.id ? styles.active : ""}`}
                 onClick={() => setActiveCategory(cat)}
               >
-                {cat.label}
+                {scope === "collection" && cat.id === "dedication" ? "Most published stories" : cat.label}
               </button>
             ))}
           </div>
         </ScrollReveal>
 
         <div className={styles.leaderList}>
-          {loading ? (
+          {error ? <p role="alert">{error}</p> : loading ? (
             <div className="spinner" style={{ margin: "50px auto" }} />
           ) : users.length > 0 ? (
             users.map((u, i) => {
@@ -87,13 +120,13 @@ export default function LeaderboardPage() {
                         {(u.username || "U")[0].toUpperCase()}
                       </div>
                       <div className={styles.leaderName}>
-                        <span className={`username-custom username-color-${u.profile_color || "derby"}`}>@{u.username}</span>
+                        <Link href={`/profile/${encodeURIComponent(u.username)}`} className={`username-custom username-color-${u.profile_color || "derby"}`}>@{u.username}</Link>
                       </div>
                     </div>
 
                     <div className={styles.leaderValue}>
                       {(u[activeCategory.sortKey] || 0).toLocaleString()} 
-                      <div className={styles.leaderSubLabel}>{activeCategory.unit}</div>
+                      <div className={styles.leaderSubLabel}>{scope === "collection" && activeCategory.id === "dedication" ? "Stories" : activeCategory.unit}</div>
                     </div>
                   </div>
                 </ScrollReveal>
