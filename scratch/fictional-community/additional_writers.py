@@ -41,7 +41,8 @@ def extend(bundle):
     for p in additions:
         key = p['habits']['cohort']
         bundle['summary']['cohorts'][key] = bundle['summary']['cohorts'].get(key, 0) + 1
-    return bundle
+    from initial_sprints import extend_initial
+    return extend_initial(bundle)
 
 if __name__ == '__main__':
     records = [{k:p[k] for k in ('username','display_name','bio')} | {'id':p['id'].removeprefix('sample-writer-'),'source_key':p['id']} for p in profiles()]

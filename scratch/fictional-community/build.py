@@ -369,9 +369,9 @@ if __name__ == "__main__":
     (ROOT / "community.json").write_text(json.dumps(bundle, indent=2, ensure_ascii=False) + "\n")
     (ROOT / "preview.html").write_text(preview(bundle))
     report = {"validation": "passed", "summary": bundle["summary"], "deployment_status": "local_review_only",
-              "checks": ["150 unique profiles", "360 unique prose bodies", "96 writing profiles and 54 profiles without saved text",
+              "checks": ["150 unique profiles", "390 unique prose bodies", "126 writing profiles and 24 profiles without saved text",
                          "case-insensitive unique handles matching signup format",
-                         "60 simulated active writers in the last 30 days", "cohort allocations",
+                         "30 initial editorial sprints with unique writers and publication events", "cohort allocations",
                          "all author/session/story links", "no future dates or overlapping sessions",
                          "registration precedes activity", "timer and save chronology", "word counts and totals",
                          "synthetic markers and real-metric exclusion on every record"],

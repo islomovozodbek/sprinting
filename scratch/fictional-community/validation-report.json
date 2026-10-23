@@ -2,50 +2,50 @@
   "validation": "passed",
   "summary": {
     "profiles": 150,
-    "writers_with_saved_text": 96,
-    "never_wrote": 54,
-    "saved_sprints": 360,
+    "writers_with_saved_text": 126,
+    "never_wrote": 24,
+    "saved_sprints": 390,
     "sessions": 372,
-    "events": 864,
-    "simulated_active_writers_last_30_days": 60,
+    "events": 894,
+    "simulated_active_writers_last_30_days": 90,
     "word_count": {
-      "total": 35647,
-      "mean": 99.0,
-      "median": 94.5,
+      "total": 38911,
+      "mean": 99.8,
+      "median": 96.5,
       "min": 29,
       "max": 240
     },
     "cohorts": {
-      "never_wrote": 30,
-      "tried_and_left": 18,
+      "never_wrote": 24,
+      "tried_and_left": 24,
       "early_burst": 18,
       "occasional": 51,
       "regular": 27,
       "frequent": 6
     },
     "timers": {
-      "1": 47,
-      "2": 49,
-      "3": 261,
+      "1": 51,
+      "2": 58,
+      "3": 278,
       "5": 3
     },
     "word_count_by_timer": {
       "1": {
         "min": 29,
         "median": 41,
-        "mean": 40.8,
+        "mean": 40.9,
         "max": 48
       },
       "2": {
         "min": 54,
-        "median": 81,
-        "mean": 80.1,
-        "max": 101
+        "median": 84.5,
+        "mean": 82.2,
+        "max": 102
       },
       "3": {
         "min": 41,
-        "median": 120,
-        "mean": 111.6,
+        "median": 121.0,
+        "mean": 112.9,
         "max": 206
       },
       "5": {
@@ -56,12 +56,12 @@
       }
     },
     "paragraph_counts": {
-      "1": 335,
+      "1": 365,
       "2": 23,
       "4": 1,
       "7": 1
     },
-    "single_block_sprints": 329,
+    "single_block_sprints": 358,
     "outcomes": {
       "saved": 360,
       "abandoned": 6,
@@ -71,10 +71,10 @@
   "deployment_status": "local_review_only",
   "checks": [
     "150 unique profiles",
-    "360 unique prose bodies",
-    "96 writing profiles and 54 profiles without saved text",
+    "390 unique prose bodies",
+    "126 writing profiles and 24 profiles without saved text",
     "case-insensitive unique handles matching signup format",
-    "60 simulated active writers in the last 30 days",
+    "30 initial editorial sprints with unique writers and publication events",
     "cohort allocations",
     "all author/session/story links",
     "no future dates or overlapping sessions",

@@ -26,7 +26,7 @@ stories = [{
         "mode", "is_hardcore", "created_at"
     )},
 } for s in data["stories"]]
-assert len(profiles) == 150 and len(stories) == 360
+assert len(profiles) == 150 and len(stories) == 390
 
 sql = ["-- Run supabase-community.sql first. This import touches only sample tables.",
        "-- Re-running updates editorial content without resetting votes or visibility.",
@@ -60,7 +60,7 @@ sql.extend([
     RAISE EXCEPTION 'A sample handle conflicts with an existing account; import rolled back';
   END IF;
   IF (SELECT count(*) FROM public.sample_profiles) < 150 OR
-     (SELECT count(*) FROM public.sample_stories) < 360 THEN
+     (SELECT count(*) FROM public.sample_stories) < 390 THEN
     RAISE EXCEPTION 'Unexpected collection counts; import rolled back';
   END IF;
 END $$;""",

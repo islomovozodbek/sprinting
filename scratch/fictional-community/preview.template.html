@@ -26,7 +26,7 @@
   <div class="subline"><span id="count" aria-live="polite"></span><button id="reset">Clear filters</button></div>
   <section id="results" role="tabpanel" aria-labelledby="tab-stories"></section>
   <button class="more" id="more" hidden>Show more</button>
-  <footer class="fineprint"><details><summary>Collection details</summary><p>This is a local editorial preview. All profiles are invented, prose is AI-written, and activity histories are simulated. No real accounts, daily submissions, votes, followers, or analytics have been created. Internal provenance and exclusions from real metrics remain in the JSON bundle.</p><p>Rebuild with <code>python3 scratch/fictional-community/build.py</code>. Edit individual drafts in the adjacent <code>*.prose.json</code> files.</p></details></footer>
+  <footer class="fineprint"><details><summary>Collection details</summary><p>This is a local editorial preview. All profiles are invented, prose is AI-written, and activity histories are simulated. No real accounts, daily submissions, followers, or analytics have been created. Live seeded reactions are tracked separately. Internal provenance and exclusions from real metrics remain in the JSON bundle.</p><p>Rebuild with <code>python3 scratch/fictional-community/build.py</code>. Edit individual drafts in the adjacent <code>*.prose.json</code> files.</p></details></footer>
 </main>
 <script id="community-data" type="application/json">__COMMUNITY_JSON__</script>
 <script>
@@ -65,7 +65,7 @@
     if(p.bio)card.append(el('p',p.bio,'bio'));
     const mini=el('div',undefined,'mini');for(const [value,label]of[[p.sample_stats.saved_sprints,'texts'],[p.sample_stats.attempts,'attempts'],[p.sample_stats.active_days,'writing days']]){const n=el('div');n.append(el('b',value),el('span',label));mini.append(n);}card.append(mini,el('p','Joined: '+date(p.created_at)),el('p','Latest writing: '+date(p.sample_stats.last_writing_activity_at)),el('div',p.sample_stats.saved_sprints?'Length range: '+p.sample_stats.min_words+'–'+p.sample_stats.max_words+' words · mean '+p.sample_stats.mean_words:'No sprint texts yet.','foot'));return card;
   }
-  const eventLabels={registered:'Registered',sprint_started:'Started a sprint',sprint_saved:'Saved a sprint',sprint_abandoned:'Abandoned attempt',sprint_erased_then_left:'Text erased; left without saving'};
+  const eventLabels={editorial_published:"Editorial publication",registered:'Registered',sprint_started:'Started a sprint',sprint_saved:'Saved a sprint',sprint_abandoned:'Abandoned attempt',sprint_erased_then_left:'Text erased; left without saving'};
   function render() {
     let rows;
     if(state.view==='stories')rows=data.stories.filter(s=>{const p=profiles.get(s.author_id);return matchingProfile(p)&&queryMatch(s.title,s.content,s.prompt.text,p.username,p.display_name);}).slice().reverse();
