@@ -17,7 +17,6 @@ export default function LeaderboardPage() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [scope, setScope] = useState("writers");
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -26,18 +25,31 @@ export default function LeaderboardPage() {
       setLoading(true);
       setError(null);
       try {
-        const { data, error } = await supabase
-          .from(scope === "collection" ? "collection_rankings" : "profiles")
-          .select(scope === "collection"
-            ? "id,username,profile_color,total_stories,total_upvotes_received"
-            : "id,username,profile_color,total_stories,total_upvotes_received,current_streak")
-          .order(activeCategory.sortKey, { ascending: false })
-          .order("username", { ascending: true })
-          .limit(20);
-
-        if (error) throw error;
+        // Each source's top 20 contains every candidate for the combined top 20.
+        const collectionQuery = supabase
+          .from("collection_rankings")
+          .select("id,username,profile_color,total_stories,total_upvotes_received");
+        if (activeCategory.id !== "consistency") {
+          collectionQuery.order(activeCategory.sortKey, { ascending: false });
+        }
+        const [writers, collection] = await Promise.all([
+          supabase.from("profiles")
+            .select("id,username,profile_color,total_stories,total_upvotes_received,current_streak")
+            .order(activeCategory.sortKey, { ascending: false, nullsFirst: false })
+            .order("id", { ascending: true }).limit(20),
+          collectionQuery.order("id", { ascending: true }).limit(20),
+        ]);
+        if (writers.error || collection.error) throw writers.error || collection.error;
         if (cancelled) return;
-        setUsers(data || []);
+        const combined = [
+          ...(writers.data || []),
+          ...(collection.data || []).map(profile => ({ ...profile, current_streak: 0 })),
+        ];
+        combined.sort((a, b) =>
+          (b[activeCategory.sortKey] || 0) - (a[activeCategory.sortKey] || 0)
+          || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+        );
+        setUsers(combined.slice(0, 20));
       } catch (err) {
         if (cancelled) return;
         setUsers([]);
@@ -55,7 +67,7 @@ export default function LeaderboardPage() {
       cancelled = true;
       window.removeEventListener("focus", refresh);
     };
-  }, [activeCategory, scope]);
+  }, [activeCategory]);
 
   return (
     <div className={styles.leaderPage}>
@@ -70,30 +82,15 @@ export default function LeaderboardPage() {
         </header>
 
         {/* Tab Selection */}
-        <div className={styles.tabs}>
-          {[["writers", "Community writers"], ["collection", "Story collection"]].map(([id, label]) => (
-            <button key={id} className={`${styles.tab} ${scope === id ? styles.active : ""}`}
-              aria-pressed={scope === id}
-              onClick={() => {
-                setScope(id);
-                setActiveCategory(id === "collection" ? CATEGORIES[1] : CATEGORIES[0]);
-              }}>
-              {label}
-            </button>
-          ))}
-        </div>
-        {scope === "collection" && <p style={{ textAlign: "center", marginBottom: 24 }}>
-          Editorial profiles ranked by published stories and reader upvotes.
-        </p>}
         <ScrollReveal animation="fadeUp" delay={100}>
           <div className={styles.tabs}>
-            {CATEGORIES.filter(cat => scope !== "collection" || cat.id !== "consistency").map(cat => (
+            {CATEGORIES.map(cat => (
               <button 
                 key={cat.id} 
                 className={`${styles.tab} ${activeCategory.id === cat.id ? styles.active : ""}`}
                 onClick={() => setActiveCategory(cat)}
               >
-                {scope === "collection" && cat.id === "dedication" ? "Most published stories" : cat.label}
+                {cat.label}
               </button>
             ))}
           </div>
@@ -126,7 +123,7 @@ export default function LeaderboardPage() {
 
                     <div className={styles.leaderValue}>
                       {(u[activeCategory.sortKey] || 0).toLocaleString()} 
-                      <div className={styles.leaderSubLabel}>{scope === "collection" && activeCategory.id === "dedication" ? "Stories" : activeCategory.unit}</div>
+                      <div className={styles.leaderSubLabel}>{activeCategory.unit}</div>
                     </div>
                   </div>
                 </ScrollReveal>
