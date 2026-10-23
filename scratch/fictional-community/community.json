@@ -35,9 +35,9 @@
     }
   },
   "summary": {
-    "profiles": 120,
+    "profiles": 150,
     "writers_with_saved_text": 96,
-    "never_wrote": 24,
+    "never_wrote": 54,
     "saved_sprints": 360,
     "sessions": 372,
     "events": 864,
@@ -50,12 +50,12 @@
       "max": 240
     },
     "cohorts": {
-      "never_wrote": 24,
+      "never_wrote": 30,
       "tried_and_left": 18,
       "early_burst": 18,
-      "occasional": 42,
-      "regular": 15,
-      "frequent": 3
+      "occasional": 51,
+      "regular": 27,
+      "frequent": 6
     },
     "timers": {
       "1": 47,
@@ -5873,6 +5873,1476 @@
         "max_words": 240,
         "last_writing_activity_at": "2026-10-18T21:31:46Z",
         "active_days": 11
+      }
+    },
+    {
+      "id": "sample-writer-0d1e3567-fc38-5476-9d1b-d1506407e589",
+      "source_number": 121,
+      "username": "umida_r",
+      "display_name": "Umida",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Often a conversation starts before the setting is explained. Fast alternating dialogue, little attribution, domestic disagreements without a tidy verdict. Occasional dropped small words.",
+        "recurring_interests": [
+          "siblings",
+          "shared kitchens"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-4e278577-2b14-5dbf-9d79-acacd25506ba",
+      "source_number": 122,
+      "username": "otabek_91",
+      "display_name": "Otabek",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Dry practical narration through measurements, tools and small repair mistakes. Short factual clauses; emotion leaks through what he refuses to throw away. Mostly clean spelling.",
+        "recurring_interests": [
+          "repairs",
+          "old bicycles"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-d7866188-9db8-52b5-bc17-abc99c5a47ba",
+      "source_number": 123,
+      "username": "shirin_a",
+      "display_name": "Shirin",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Restless first-person voice, starts with a tiny embarrassment then interrupts herself with a worse memory. Long single paragraph, occasional doubled word, no compulsory twist.",
+        "recurring_interests": [
+          "friendship",
+          "missed calls"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-a6c99e39-f8d7-5e97-8741-8515787a7f27",
+      "source_number": 124,
+      "username": "farrukh_m",
+      "display_name": "Farrukh",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Deadpan procedural comedy: a character treats an absurd errand as ordinary work. Numbered steps sometimes collapse into prose; precise nouns, unfinished last instruction.",
+        "recurring_interests": [
+          "bureaucracy",
+          "errands"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-682e8ef3-1e0e-5dab-b653-3b53a1f35608",
+      "source_number": 125,
+      "username": "munisa22",
+      "display_name": "Munisa",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Soft sensory fragments centred on sound, especially what can be heard through walls. Sparse punctuation, brief changes of tense; avoids explaining the implied relationship.",
+        "recurring_interests": [
+          "neighbours",
+          "music practice"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-81e0836c-79de-575e-99f3-0d29fbb949aa",
+      "source_number": 126,
+      "username": "abror_t",
+      "display_name": "Abror",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Rapid sporting anecdotes told to an imagined friend. Arguments with his own remembered score, energetic verbs, occasional transposed letters. Can end mid-action.",
+        "recurring_interests": [
+          "football",
+          "rivalries"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-c960b079-39f4-539f-9939-09bb823740ee",
+      "source_number": 127,
+      "username": "rayhona_s",
+      "display_name": "Rayhona",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Close third-person miniature about one decision. Restrained language, exact gestures, one small physical object carrying the scene. Few typos; no concluding lesson.",
+        "recurring_interests": [
+          "departures",
+          "family keepsakes"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-8d394b17-0d66-52ab-a18e-b41d5c61b265",
+      "source_number": 128,
+      "username": "sherzod84",
+      "display_name": "Sherzod",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Blunt working-day observations moving through time in uneven jumps. Lists of costs and chores interrupted by unexpected affection. Sentence fragments, little ornament.",
+        "recurring_interests": [
+          "markets",
+          "fatherhood"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-78699f80-eb9e-515c-9609-6540e7adf2e0",
+      "source_number": 129,
+      "username": "feruza_b",
+      "display_name": "Feruza",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Breathless speculative premises that visibly change while being written. Uses 'wait' to retract an idea, runs clauses together, sometimes stops before choosing an ending.",
+        "recurring_interests": [
+          "time travel",
+          "lost possessions"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-09dc47a1-b470-5bdd-b915-41d527a6b0f3",
+      "source_number": 130,
+      "username": "akmal_j",
+      "display_name": "Akmal",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Suspense built from physical layout and sounds rather than threats. Compact sentences interspersed with one very long attempt to explain a route. Occasionally misses an apostrophe.",
+        "recurring_interests": [
+          "empty buildings",
+          "night journeys"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-7b440e7a-5591-56ba-83cc-fc217b347ada",
+      "source_number": 131,
+      "username": "dilafruz18",
+      "display_name": "Dilafruz",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Young comic narrator overstates ordinary stakes, then undercuts herself with a tiny detail. Lowercase starts, chat-like asides and uneven spelling, usually one block.",
+        "recurring_interests": [
+          "exams",
+          "bus rides"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-4cb8da3a-5049-5c9e-ae8a-734f593e0b87",
+      "source_number": 132,
+      "username": "bobur_n",
+      "display_name": "Bobur",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "regular",
+        "cohort_label": "Regular writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Quiet letters addressed to someone absent, without greetings or sign-offs. Concrete updates conceal the main thing he wants to say. Sometimes a final sentence is left open.",
+        "recurring_interests": [
+          "distance",
+          "gardens"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-b0addcb6-0723-5073-9710-41fb3486c732",
+      "source_number": 133,
+      "username": "zukhra_k",
+      "display_name": "Zukhra",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "frequent",
+        "cohort_label": "Frequent writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Food memories told through texture and interrupted instructions. Generous run-on sentences, occasional repetition, characters disagree about quantities rather than confess feelings.",
+        "recurring_interests": [
+          "cooking",
+          "family memory"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-3b608dd1-8159-5317-a916-27e58f6b5b9d",
+      "source_number": 134,
+      "username": "nodir_93",
+      "display_name": "Nodir",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "frequent",
+        "cohort_label": "Frequent writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Science-fiction maintenance reports slipping into uncertainty. Precise technical-seeming observations but no jargon dump; clipped corrections and unresolved system behaviour.",
+        "recurring_interests": [
+          "space stations",
+          "broken instruments"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-a5b516db-9000-59d2-b4e5-34ae6288fd48",
+      "source_number": 135,
+      "username": "kamola_v",
+      "display_name": "Kamola",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "frequent",
+        "cohort_label": "Frequent writer",
+        "intended_sessions_per_week": [
+          2,
+          3
+        ],
+        "timezone_for_simulation": "Asia/Tashkent",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "An unreliable gossip narrates a scene they only half witnessed. Fast certainty followed by qualifications; abrupt shifts between reported speech and direct quotes.",
+        "recurring_interests": [
+          "weddings",
+          "small-town rumours"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-bce314a6-b6c0-517e-8519-b2b1289ea16e",
+      "source_number": 136,
+      "username": "asel_d",
+      "display_name": "Asel",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Almaty",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Landscape appears through movement rather than description: a climb, cold fingers, a loose shoe. Past-tense first person with occasional present-tense urgency, spare endings.",
+        "recurring_interests": [
+          "hiking",
+          "siblings"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-a4e73876-53a0-54d4-8be6-31ff102ddabe",
+      "source_number": 137,
+      "username": "nursultan_k",
+      "display_name": "Nursultan",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Almaty",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Laconic roadside stories with understated humour. Short exchanges, gaps between events, plain vocabulary and very few adjectives. Usually no dramatic reveal.",
+        "recurring_interests": [
+          "driving",
+          "strangers"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-61179e3d-48ee-5367-9c5f-272ac8085853",
+      "source_number": 138,
+      "username": "meerim_27",
+      "display_name": "Meerim",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Bishkek",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Magical details enter an otherwise ordinary errand without explanation. Warm, slightly distracted narration, commas instead of full stops when excited, a few mistyped endings.",
+        "recurring_interests": [
+          "laundry",
+          "animals"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-c01828e7-2a62-56df-b08d-df4139dbce03",
+      "source_number": 139,
+      "username": "bakyt_s",
+      "display_name": "Bakyt",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Bishkek",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Objects tell the story through inventories: what was packed, returned, missing. Alternates terse list fragments with one unexpectedly long recollection; minimal dialogue.",
+        "recurring_interests": [
+          "moving house",
+          "tools"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-1c86406f-0ed6-51e0-a81e-08001b901bbb",
+      "source_number": 140,
+      "username": "farzona_m",
+      "display_name": "Farzona",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Dushanbe",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Second-person instructions that slowly become an intimate scene. Clear verbs, deliberate repetition with changing meaning, occasional unfinished imperative; avoid moral conclusions.",
+        "recurring_interests": [
+          "hospital visits",
+          "hospitality"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-72801aaa-6c97-50f4-9640-48b16ec4b073",
+      "source_number": 141,
+      "username": "kamran_h",
+      "display_name": "Kamran",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Dushanbe",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Argumentative comic narrator keeps making a case and undermining it. Parenthetical detours, rhetorical questions, occasionally loses the original point entirely.",
+        "recurring_interests": [
+          "flatmates",
+          "petty rules"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-fc425770-e917-5a6d-acc8-ca8daa11fc1b",
+      "source_number": 142,
+      "username": "leyla_32",
+      "display_name": "Leyla",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Asia/Ashgabat",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Visual scenes framed like snapshots, noticing hands and clothing before faces. Two or three sharp fragments may sit beside a long flowing sentence; sparing metaphors.",
+        "recurring_interests": [
+          "photographs",
+          "stations"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-eca9f8e7-f8b7-558f-8207-481485400330",
+      "source_number": 143,
+      "username": "ella_h",
+      "display_name": "Ella",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Europe/London",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Fidgety interior monologue during a very ordinary wait. Rehearses conversations that never occur, changes wording halfway through, mild typos and incomplete thoughts.",
+        "recurring_interests": [
+          "appointments",
+          "apologies"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-5b0eeceb-76d5-583d-bed0-39afe01504fb",
+      "source_number": 144,
+      "username": "marco_61",
+      "display_name": "Marco",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "occasional",
+        "cohort_label": "Occasional writer",
+        "intended_sessions_per_week": [
+          0,
+          1
+        ],
+        "timezone_for_simulation": "Europe/Rome",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Cheerful oral storytelling with sideways tangents and practical details. A narrator who thinks the wrong part is interesting; long sentences and occasional missing punctuation.",
+        "recurring_interests": [
+          "workshops",
+          "holidays"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-69b1ca7b-7919-5593-9644-3ab1b8eb14e1",
+      "source_number": 145,
+      "username": "rhea_s",
+      "display_name": "Rhea",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "Asia/Kolkata",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Tiny horror scenes anchored in one sensory inconsistency. Avoids naming the creature or supplying a twist; clean spare prose with a sudden unfinished action.",
+        "recurring_interests": [
+          "mirrors",
+          "familiar rooms"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-2fee657f-01df-5589-9703-afda3541f074",
+      "source_number": 146,
+      "username": "tom_47",
+      "display_name": "Tom",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "Europe/London",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Self-deprecating failure diary. Opens with a concrete failed task, lets embarrassment compound through dialogue; clipped sentences, occasional spelling slip when rushing.",
+        "recurring_interests": [
+          "DIY",
+          "first impressions"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-f353f630-d0c7-55ec-b980-d6a969560c1c",
+      "source_number": 147,
+      "username": "ines_c",
+      "display_name": "Ines",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#696481"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "Europe/Lisbon",
+        "preferred_local_hours": [
+          19,
+          22
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Affectionate but unsentimental observational prose about people sharing space. Varies sentence length sharply, lets gestures contradict dialogue, sometimes leaves a scene unresolved.",
+        "recurring_interests": [
+          "cafes",
+          "public transport"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-d7117dcb-cf9f-5fc7-9a99-7f5ffc586ffb",
+      "source_number": 148,
+      "username": "yusuf_28",
+      "display_name": "Yusuf",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#53717a"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "Europe/Istanbul",
+        "preferred_local_hours": [
+          21,
+          23
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Folktale rhythm applied to small modern inconveniences. Repeated phrases with slight changes, plain dialogue and dry irony; no ornate fantasy vocabulary.",
+        "recurring_interests": [
+          "shops",
+          "bargains"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-72714dea-7aef-5a4a-8fd7-ad9f7a20e4aa",
+      "source_number": 149,
+      "username": "molly_j",
+      "display_name": "Molly",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#6b725b"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "America/New_York",
+        "preferred_local_hours": [
+          7,
+          9
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Chaotic fast first-person storytelling, abrupt capitals for emphasis, genuine-looking repairs to word choices and skipped connective words. Energy matters more than completing the plot.",
+        "recurring_interests": [
+          "parties",
+          "lost pets"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
+      }
+    },
+    {
+      "id": "sample-writer-757950cd-75de-5f59-ba49-d64a93bf4bcd",
+      "source_number": 150,
+      "username": "kenji_m",
+      "display_name": "Kenji",
+      "bio": "",
+      "avatar": {
+        "kind": "initials",
+        "color": "#8a6357"
+      },
+      "is_synthetic": true,
+      "display_label": "Fictional sample writer",
+      "auth_account_created": false,
+      "include_in_real_metrics": false,
+      "leaderboard_eligible": false,
+      "created_at": "2026-10-23T00:00:00Z",
+      "habits": {
+        "cohort": "never_wrote",
+        "cohort_label": "Registered, no writing",
+        "intended_sessions_per_week": [
+          0,
+          0
+        ],
+        "timezone_for_simulation": "Asia/Tokyo",
+        "preferred_local_hours": [
+          12,
+          14
+        ],
+        "history_scope": "new_editorial_writer",
+        "schedule_note": "New voice; no backfilled stories. Scheduled publication only for regular/frequent writers."
+      },
+      "writing_style": {
+        "description": "Almost silent scenes with exact spatial details and an understated strange event. Clean short clauses, long pauses implied by omitted explanation; occasional one-sentence draft.",
+        "recurring_interests": [
+          "rain",
+          "late trains"
+        ]
+      },
+      "sample_stats": {
+        "saved_sprints": 0,
+        "attempts": 0,
+        "retained_words": 0,
+        "mean_words": 0,
+        "min_words": 0,
+        "max_words": 0,
+        "last_writing_activity_at": null,
+        "active_days": 0
       }
     }
   ],

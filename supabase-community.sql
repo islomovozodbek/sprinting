@@ -93,7 +93,8 @@ WHERE NOT s.is_hidden AND p.published AND NOT EXISTS (
 REVOKE ALL ON public.community_profiles, public.community_stories FROM anon, authenticated;
 GRANT SELECT ON public.community_profiles, public.community_stories TO anon, authenticated;
 
--- Only actual signed-in readers can vote. No invented votes or author rewards.
+-- Only signed-in readers can call this voting RPC. No author rewards.
+-- Owner-requested fictional reactions are separately recorded in seeded-reactions.json.
 CREATE OR REPLACE FUNCTION public.vote_sample_story(p_story_id uuid, p_direction text)
 RETURNS json
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public

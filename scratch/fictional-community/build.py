@@ -364,11 +364,12 @@ def preview(bundle):
 
 
 if __name__ == "__main__":
-    bundle = build()
+    from additional_writers import extend
+    bundle = extend(build())
     (ROOT / "community.json").write_text(json.dumps(bundle, indent=2, ensure_ascii=False) + "\n")
     (ROOT / "preview.html").write_text(preview(bundle))
     report = {"validation": "passed", "summary": bundle["summary"], "deployment_status": "local_review_only",
-              "checks": ["120 unique profiles", "360 unique prose bodies", "96 writing profiles and 24 non-writers",
+              "checks": ["150 unique profiles", "360 unique prose bodies", "96 writing profiles and 54 profiles without saved text",
                          "case-insensitive unique handles matching signup format",
                          "60 simulated active writers in the last 30 days", "cohort allocations",
                          "all author/session/story links", "no future dates or overlapping sessions",

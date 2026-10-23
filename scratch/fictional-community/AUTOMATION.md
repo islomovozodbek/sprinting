@@ -3,7 +3,7 @@
 Run `python3 scratch/fictional-community/schedule.py` from this repository.
 An empty array means no posting is due. Do nothing and stay quiet.
 
-The 18 regular/frequent fictional writers have two or three slots each week,
+The 33 regular/frequent fictional writers have two or three slots each week,
 rotated deterministically by writer and week in their existing local timezone.
 Preferred hours and a varied minute are preserved. A six-hour heartbeat means
 publication happens at the next check, not exactly at the planned minute.

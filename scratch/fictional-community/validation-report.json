@@ -1,9 +1,9 @@
 {
   "validation": "passed",
   "summary": {
-    "profiles": 120,
+    "profiles": 150,
     "writers_with_saved_text": 96,
-    "never_wrote": 24,
+    "never_wrote": 54,
     "saved_sprints": 360,
     "sessions": 372,
     "events": 864,
@@ -16,12 +16,12 @@
       "max": 240
     },
     "cohorts": {
-      "never_wrote": 24,
+      "never_wrote": 30,
       "tried_and_left": 18,
       "early_burst": 18,
-      "occasional": 42,
-      "regular": 15,
-      "frequent": 3
+      "occasional": 51,
+      "regular": 27,
+      "frequent": 6
     },
     "timers": {
       "1": 47,
@@ -70,9 +70,9 @@
   },
   "deployment_status": "local_review_only",
   "checks": [
-    "120 unique profiles",
+    "150 unique profiles",
     "360 unique prose bodies",
-    "96 writing profiles and 24 non-writers",
+    "96 writing profiles and 54 profiles without saved text",
     "case-insensitive unique handles matching signup format",
     "60 simulated active writers in the last 30 days",
     "cohort allocations",

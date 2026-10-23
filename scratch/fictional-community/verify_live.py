@@ -40,7 +40,7 @@ def all_rows(path):
 profiles = all_rows("community_profiles?is_synthetic=eq.true&select=id,username,display_name,total_stories")
 stories = all_rows("community_stories?is_synthetic=eq.true&select=id,author_id,author_username,content,word_count,is_hidden")
 expected = json.loads((ROOT / "community.json").read_text())
-assert len(profiles) == 120 and len(stories) >= 360
+assert len(profiles) == len(expected["profiles"]) and len(stories) >= 360
 profile_map = {p["id"]: p for p in profiles}
 expected_profiles = {p["id"].removeprefix("sample-writer-"): p for p in expected["profiles"]}
 expected_stories = {s["id"].removeprefix("sample-story-"): s for s in expected["stories"]}
